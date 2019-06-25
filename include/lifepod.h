@@ -36,7 +36,7 @@ typedef struct ship_s {
 scan_t *alloc_scan(void);
 ship_t *alloc_ship(void);
 
-int game(scr_t *screen, ship_t *ship);
+int game(ship_t *ship);
 
 scr_t *build_scr_t(void);
 

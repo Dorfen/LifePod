@@ -89,11 +89,11 @@ object/%.o: source/%.c
 	|| echo -e "$(RED)[KO]$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: $(LIB-PATH)/%.c
-	@gcc -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@gcc -O3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "$(GREEN)[OK]$(BOLD)$(WHITE)" $< "$(END)"		\
 	|| echo -e "$(RED)[KO]$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: $(CURS-PATH)/%.c
-	@gcc -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@gcc -O3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "$(GREEN)[OK]$(BOLD)$(WHITE)" $< "$(END)"		\
 	|| echo -e "$(RED)[KO]$(BOLD)$(WHITE)" $< "$(END)"
