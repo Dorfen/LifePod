@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** PROJECT, 2018
 ** my_char_isnum.c
 ** File description:
 ** is num

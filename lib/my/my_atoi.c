@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** PROJECT, 2018
 ** atoi
 ** File description:
 ** convert char -> int

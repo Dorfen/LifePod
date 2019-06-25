@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** PROJECT, 2018
 ** my_compute_square_root
 ** File description:
 ** squre_root

@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include <ncurses.h>
+#include <termios.h>
 
 #ifndef MY_CURS_H_
 #define MY_CURS_H_
@@ -19,6 +20,7 @@ typedef struct coord_s {
     int y;
 } coord_t;
 
+int init_screen(void);
 int nc_put_str_array(WINDOW *win, char **tab, int color);
 int wbrefresh(WINDOW *win, chtype verch, chtype horch);
 int nc_strarr_move(WINDOW *win, char **tab, coord_t *coord, int color);

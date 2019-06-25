@@ -40,13 +40,13 @@ WHITE	=	\033[37m
 
 all: lib $(OBJ)
 	@echo -e "$(CYAN)$(BOLD)OBJ.o$(END) generation$(END)"
-	@gcc -o $(NAME) $(OBJ) $(LFLAGS)
+	@gcc -o $(NAME) $(OBJ) $(LFLAGS) $(CFLAGS)
 	@echo -e "$(CYAN)$(BOLD)$(NAME)$(END) generation$(END)"
 	@echo -e "$(GREEN)* * * * * BINARY $(WHITE)$(BOLD)$(NAME)$(END)$(GREEN) COMPLETED * * * * *$(END)"
 
 clear:
 	@echo -e "$(BOLD)Deleting junks files$(END)"
-	@rm -fv lib/my/*~
+	@rm -fv lib/my/*~ lib/mycurs/*~
 	@rm -fv source/*~
 	@rm -fv *~
 	@rm -fv include/*~

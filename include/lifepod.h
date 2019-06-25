@@ -12,6 +12,12 @@
 #include "my.h"
 #include "macros.h"
 
+typedef struct scr_s {
+    WINDOW *event;
+    WINDOW *cmd;
+    WINDOW *status;
+} scr_t;
+
 typedef struct scan_s {
     int atm;
     int grav;
@@ -29,5 +35,9 @@ typedef struct ship_s {
 
 scan_t *alloc_scan(void);
 ship_t *alloc_ship(void);
+
+int game(scr_t *screen, ship_t *ship);
+
+scr_t *build_scr_t(void);
 
 #endif /*LIFEPOD_H_*/

@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2017
+** PROJECT, 2017
 ** my_strncpy.c
 ** File description:
 ** copy

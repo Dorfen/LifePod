@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019
+** PROJECT, 2019
 ** libmy
 ** File description:
 ** fill str with '\0'
