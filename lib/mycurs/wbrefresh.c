@@ -5,7 +5,7 @@
 ** reshech box
 */
 
-#include "../../include/my_curse.h"
+#include "my_curse.h"
 
 int wbrefresh(WINDOW *win, chtype verch, chtype horch)
 {

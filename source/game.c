@@ -12,10 +12,8 @@ int game(ship_t *ship)
     scr_t *scr = build_scr_t();
     char c = 0;
 
-    wrefresh(scr->event);
-    refresh();
     while (c != 'q') {
-        mvwprintw(scr->event, 2, 2, "%s", "HELLO");
+        display_ship_status(scr->status, ship);
         refresh();
         c = getch();
     }

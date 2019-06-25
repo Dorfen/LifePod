@@ -38,6 +38,7 @@ ship_t *alloc_ship(void);
 
 int game(ship_t *ship);
 
+int display_ship_status(WINDOW *scr, ship_t *ship);
 scr_t *build_scr_t(void);
 
 #endif /*LIFEPOD_H_*/
