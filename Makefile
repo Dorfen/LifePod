@@ -1,5 +1,5 @@
 ##
-## EPITECH PROJECT, 2018
+## PROJECT, 2018
 ## Makefile
 ## File description:
 ## Makefile 3.1
@@ -84,7 +84,7 @@ fclean: clean
 re:	clear fclean lclean lib all
 
 object/%.o: source/%.c
-	@gcc -O3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@gcc -O3 -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "$(GREEN)[OK]$(BOLD)$(WHITE)" $< "$(END)"		\
 	|| echo -e "$(RED)[KO]$(BOLD)$(WHITE)" $< "$(END)"
 

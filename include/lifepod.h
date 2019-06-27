@@ -8,9 +8,13 @@
 #ifndef LIFEPOD_H_
 #define LIFEPOD_H_
 
+#define MAX_EVENT 22
+
 #include "my_curse.h"
 #include "my.h"
 #include "macros.h"
+#include <string.h>
+#include <time.h>
 
 typedef struct scr_s {
     WINDOW *event;
@@ -40,5 +44,13 @@ int game(ship_t *ship);
 
 int display_ship_status(WINDOW *scr, ship_t *ship);
 scr_t *build_scr_t(void);
+
+int event(scr_t *scrr, ship_t *ship);
+int button(WINDOW *cmd, const char *tab[]);
+
+void print_ship(WINDOW *win, coord_t const coord);
+int damage_ship(ship_t *ship, int const dmg, int const sys);
+
+#include "event.h"
 
 #endif /*LIFEPOD_H_*/

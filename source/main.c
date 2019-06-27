@@ -11,6 +11,7 @@ int main(void)
 {
     ship_t *ship = alloc_ship();
 
+    srand(time(NULL));
     if (ship == NULL)
         return (84);
     if (init_screen() == -1)

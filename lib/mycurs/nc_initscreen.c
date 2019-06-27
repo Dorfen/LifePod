@@ -27,6 +27,9 @@ int init_screen(void)
     initscr();
     noecho();
     curs_set(false);
+    clear();
+    cbreak();
+    keypad(stdscr, true);
     refresh();
     return (0);
 }
