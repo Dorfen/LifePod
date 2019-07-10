@@ -43,8 +43,3 @@ int event_1(scr_t *scr, ship_t *ship)
     }
     return (0);
 }
-
-int event_2(scr_t *scr, ship_t *ship)
-{
-    return (0);
-}
