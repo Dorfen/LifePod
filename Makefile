@@ -26,7 +26,7 @@ OBJ-CURS    =   $(addprefix object/, $(addsuffix .o, $(NOM-CURS)))
 CFLAGS  =   -L $(CURS-PATH) -l$(CURS) -lncurses
 
 HEADP	=	./include/
-NAME	=	a.out
+NAME	=	LifePod
 
 END     =	\033[0m
 BOLD	=	\033[1m

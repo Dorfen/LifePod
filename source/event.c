@@ -44,6 +44,5 @@ int event(scr_t *scr, ship_t *ship)
     default: return(0);
     }*/
     event_1(scr, ship);
-    wbrefresh(scr->cmd, 0, 0);
     return (0);
 }
