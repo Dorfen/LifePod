@@ -1,0 +1,12 @@
+stages:
+      - test
+
+test:compilation:
+    stage: test
+    image: "registry.dragonalpha.fr/dorfen/ci/minimal:minimal"
+
+    before_script:
+      - apk add --no-cache ncurses
+
+    script:
+      - make

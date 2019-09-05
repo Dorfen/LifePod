@@ -82,8 +82,8 @@ re:	clear fclean lclean lib all
 
 object/%.o: source/%.c
 	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate $(BOLD)$(WHITE)" $< "$(END)"      \
-    || echo -e "[ $(RED)KO$(END) ] Generate $(BOLD)$(WHITE)" $< "$(END)"
+	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
+    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 
 object/%.o: $(LIB-PATH)/%.c
@@ -95,4 +95,4 @@ object/%.o: $(LIB-PATH)/%.c
 object/%.o: $(CURS-PATH)/%.c
 	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-	|| echo -e "[ $(RED)KO$(END) ] Generate $(BOLD)$(WHITE)" $< "$(END)"
+	|| echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
