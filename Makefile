@@ -8,6 +8,12 @@
 SRC	=	$(wildcard $(addprefix source/, *).c)
 NOM	=	$(basename $(notdir $(SRC)))
 OBJ	=	$(addprefix object/, $(addsuffix .o, $(NOM)))
+OBJM	=	$(filter-out object/main.o, $(OBJ))
+
+TEST_SRC	=	$(wildcard $(addprefix tests/, *).c)
+TEST_NAME	=	$(basename $(notdir $(TEST_SRC)))
+TEST_OBJ	=	$(addprefix object/, $(addsuffix .o, $(TEST_NAME)))
+TFLAGS		=	--coverage -lcriterion
 
 LNAME	=	libmy.a
 LIB		=	my
@@ -38,12 +44,16 @@ WHITE	=	\033[37m
 
 CC	=	gcc
 
-.PHONY: re clean lib curs my
+.PHONY: re clean lib curs my tests_run
 
 all: lib $(OBJ)
 	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS) $(CFLAGS)
 	@echo -e "$(GREEN)* * * * * BINARY $(WHITE)$(BOLD)$(NAME)$(END)$(GREEN) COMPLETED * * * * *$(END)"
 
+tests_run: all $(TEST_OBJ)
+	@echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
+	@gcc -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS)
+	@./unit_tests
 clear:
 	@echo -e "$(BOLD)Deleting junks files$(END)"
 	@rm -fv lib/my/*~
@@ -80,17 +90,20 @@ fclean: clean
 
 re:	clear fclean lclean lib all
 
-object/%.o: source/%.c
-	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+object/%.o: tests/%.c
+	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $< \
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
+object/%.o: source/%.c
+	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
+    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: $(LIB-PATH)/%.c
 	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-    || echo -e "[ $(RED)KO$(END) ] Generate $(BOLD)$(WHITE)" $< "$(END)"
-
+    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: $(CURS-PATH)/%.c
 	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\

@@ -9,7 +9,7 @@
 
 void print_ship(WINDOW *win, coord_t const coord)
 {
-    mvwprintw(win, coord.y, coord.x, "                    `. ___");
+    mvwprintw(win, coord.y + 0, coord.x, "                    `. ___");
     mvwprintw(win, coord.y + 1, coord.x, "                    __,' __`.                _..----....____");
     mvwprintw(win, coord.y + 2, coord.x, "        __...--.'``;.   ,.   ;``--..__     .'    ,-._    _.-'");
     mvwprintw(win, coord.y + 3, coord.x, "  _..-''-------'   `'   `'   `'     O ``-''._   (,;') _,'");

@@ -1,6 +1,6 @@
 /*
 ** PROJECT, 2019
-** LifePos
+** LifePod
 ** File description:
 ** window
 */
