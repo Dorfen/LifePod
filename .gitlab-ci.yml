@@ -8,9 +8,9 @@ test:compilation:
   script:
     - make
 
-test:test_run:
-    stage: test
-    image: "registry.dragonalpha.fr/dorfen/ci/minimal:minimal"
+test:tests_run:
+  stage: test
+  image: "registry.dragonalpha.fr/dorfen/ci/minimal:minimal"
 
-    script:
-      - make test_run
+  script:
+    - make tests_run
