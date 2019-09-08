@@ -33,3 +33,11 @@ Test(alloc_tests, alloc_ship_struct)
     free(foo->scan);
     free(foo);
 }
+
+Test(alloc_tests, alloc_screen_struct)
+{
+    scr_t *foo = build_scr_t();
+
+    cr_assert_not(foo == NULL);
+    free(foo);
+}
