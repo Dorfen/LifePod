@@ -81,6 +81,11 @@ curs: $(OBJ-CURS)
 	@ar rc $(addprefix $(CURS-PATH)/, $(CNAME)) $(OBJ-CURS)
 	@echo -e "$(GREEN)* * * * * LIBRARY $(WHITE)$(BOLD)$(CURS)$(END)$(GREEN) COMPLETED * * * * *$(END)"
 
+tclean:
+	@echo -e "$(BOLD)Deleting tests$(END)"
+	@rm -f $(TEST_OBJ)
+	@echo -e "$(CYAN)* * * * * TESTS REMOVED * * * * *$(END)"
+
 lclean:
 	@echo -e "$(BOLD)Deleting $(LNAME)$(END)"
 	@rm -f $(OBJ-LIB) $(OBJ-CURS) $(LNAME) $(CNAME)
@@ -91,7 +96,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
 
-re:	clear fclean lclean lib all
+re:	clear fclean lclean tclean lib all
 
 object/%.o: tests/%.c
 	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $< \
