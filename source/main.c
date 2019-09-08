@@ -19,5 +19,6 @@ int main(void)
     if (game(ship) != 0)
         return (84);
     free(ship->scan);
+    free(ship);
     return (0);
 }

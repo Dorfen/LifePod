@@ -27,16 +27,16 @@ void print_ship(WINDOW *win, coord_t const coord)
 
 int damage_ship(ship_t *ship, int const dmg, int const sys)
 {
-	switch(sys) {
-	case (0): ship->colon -= dmg * 10; break;
-	case (1): ship->scan->atm -= dmg; break;
-	case (2): ship->scan->grav -= dmg; break;
-	case (3): ship->scan->temp -= dmg; break;
-	case (4): ship->scan->water -= dmg; break;
-	case (5): ship->scan->res -= dmg; break;
-	case (6): ship->landing -= dmg; break;
-	case (7): ship->build -= dmg; break;
-	default: break;
-	}
-	return (0);
+    switch(sys) {
+    case (0): ship->colon -= dmg * 10; break;
+    case (1): ship->scan->atm -= dmg; break;
+    case (2): ship->scan->grav -= dmg; break;
+    case (3): ship->scan->temp -= dmg; break;
+    case (4): ship->scan->water -= dmg; break;
+    case (5): ship->scan->res -= dmg; break;
+    case (6): ship->landing -= dmg; break;
+    case (7): ship->build -= dmg; break;
+    default: break;
+    }
+    return (0);
 }

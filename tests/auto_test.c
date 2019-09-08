@@ -10,5 +10,5 @@
 
 Test(test, auto_success)
 {
-    cr_expect(1 == 1);
+    cr_assert(1 == 1);
 }
