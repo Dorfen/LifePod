@@ -50,6 +50,9 @@ all: lib $(OBJ)
 	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS) $(CFLAGS)
 	@echo -e "$(GREEN)* * * * * BINARY $(WHITE)$(BOLD)$(NAME)$(END)$(GREEN) COMPLETED * * * * *$(END)"
 
+run: all
+	@./$(NAME)
+
 tests_run: all $(TEST_OBJ)
 	@echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
 	@gcc -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS)
