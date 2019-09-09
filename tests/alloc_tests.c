@@ -34,6 +34,18 @@ Test(alloc_tests, alloc_ship_struct)
     free(foo);
 }
 
+Test(alloc_tests, alloc_event_struct)
+{
+    event_t *foo = alloc_event();
+
+    cr_assert_not(foo == NULL);
+    cr_assert(foo->system == 0);
+    cr_assert(foo->dmg == 0);
+    cr_assert(foo->max_mult == 0);
+    cr_assert(foo->msg == 0);
+    free(foo);
+}
+
 Test(alloc_tests, alloc_screen_struct)
 {
     scr_t *foo = build_scr_t();

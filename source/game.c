@@ -19,8 +19,8 @@ static void exit_game(void)
 
 int game(ship_t *ship)
 {
-    scr_t *scr = build_scr_t();
+    //scr_t *scr = build_scr_t();
 
-    free(scr);
+    //free(scr);
     return (0);
 }

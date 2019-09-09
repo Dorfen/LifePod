@@ -5,16 +5,16 @@
 ** header
 */
 
-#ifndef LIFEPOD_H_
-#define LIFEPOD_H_
-
-#define MAX_EVENT 22
-
+#define _GNU_SOURCE
+#include <string.h>
+#include <time.h>
+#include <stdio.h>
 #include "my_curse.h"
 #include "my.h"
 #include "macros.h"
-#include <string.h>
-#include <time.h>
+
+#ifndef LIFEPOD_H_
+#define LIFEPOD_H_
 
 typedef struct scr_s {
     WINDOW *event;
@@ -22,32 +22,39 @@ typedef struct scr_s {
     WINDOW *status;
 } scr_t;
 
+typedef struct event_s {
+    short system;
+    unsigned int dmg;
+    unsigned int max_mult;
+    char *msg;
+} event_t;
+
 typedef struct scan_s {
-    int atm;
-    int grav;
-    int temp;
-    int water;
-    int res;
+    unsigned int atm;
+    unsigned int grav;
+    unsigned int temp;
+    unsigned int water;
+    unsigned int res;
 } scan_t;
 
 typedef struct ship_s {
-    int colon;
+    unsigned int colon;
     scan_t *scan;
-    int landing;
-    int build;
+    unsigned int landing;
+    unsigned int build;
 } ship_t;
 
 scan_t *alloc_scan(void);
 ship_t *alloc_ship(void);
+event_t *alloc_event(void);
+scr_t *build_scr_t(void);
 
 int game(ship_t *ship);
 
 int display_ship_status(WINDOW *scr, ship_t *ship);
-scr_t *build_scr_t(void);
 
 void print_ship(WINDOW *win, coord_t const coord);
-int damage_ship(ship_t *ship, int const dmg, int const sys);
 
-#include "event.h"
+event_t **load_all_event(void);
 
 #endif /*LIFEPOD_H_*/

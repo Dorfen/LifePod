@@ -55,3 +55,4 @@ dkms.conf
 LifePod
 a.out
 unit_tests
+vgcore.*

@@ -35,6 +35,19 @@ ship_t *alloc_ship(void)
     return (ret);
 }
 
+event_t *alloc_event(void)
+{
+    event_t *ret = malloc(sizeof(event_t));
+
+    if (ret == NULL)
+        return (NULL);
+    ret->system = 0;
+    ret->dmg = 0;
+    ret->max_mult = 0;
+    ret->msg = NULL;
+    return (ret);
+}
+
 scr_t *build_scr_t(void)
 {
     scr_t *screen = malloc(sizeof(scr_t));
