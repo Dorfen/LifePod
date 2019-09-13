@@ -28,8 +28,10 @@ event_t *add_event(const int n, const struct dirent *namelist)
     FILE *file = NULL;
 
     asprintf(&filename, "./event_data/%s", namelist->d_name);
-    fstat(fileno(file), &statbuf);
     file = fopen(filename, "r");
+    if (file == NULL)
+        return (NULL);
+    stat(filename, &statbuf);
     fread(buffer, statbuf.st_size, 1, file);
     free(filename);
     fclose(file);

@@ -104,7 +104,7 @@ object/%.o: tests/%.c
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: source/%.c
-	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 

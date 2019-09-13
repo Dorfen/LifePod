@@ -9,6 +9,7 @@
 
 int main(void)
 {
+    event_t *event = load_all_event();
     ship_t *ship = alloc_ship();
 
     srand(time(NULL));
@@ -18,7 +19,6 @@ int main(void)
     //    return (84);
     //if (game(ship) != 0)
     //    return (84);
-    load_all_event();
     free(ship->scan);
     free(ship);
     return (0);
