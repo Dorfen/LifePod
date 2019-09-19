@@ -19,7 +19,7 @@ int filter_filter(const struct dirent *name)
     return (0);
 }
 
-event_t *add_event(const int n, const struct dirent *namelist)
+event_t *read_event(const struct dirent *namelist)
 {
     event_t *ret = alloc_event();
     struct stat statbuf;
@@ -28,8 +28,11 @@ event_t *add_event(const int n, const struct dirent *namelist)
     FILE *file = NULL;
 
     asprintf(&filename, "./event_data/%s", namelist->d_name);
-    fstat(fileno(file), &statbuf);
     file = fopen(filename, "r");
+    if (file == NULL)
+        return (NULL);
+    fstat(fileno(file), &statbuf);
+    buffer = malloc(sizeof(char) * statbuf.st_size);
     fread(buffer, statbuf.st_size, 1, file);
     free(filename);
     fclose(file);
@@ -39,16 +42,20 @@ event_t *add_event(const int n, const struct dirent *namelist)
 event_t **load_all_event(void)
 {
     event_t **ret = NULL;
+    int fail = 0;
     struct dirent **namelist = NULL;
     int n = scandir("./event_data/", &namelist, filter_filter, alphasort);
 
     if (n == -1)
         return (NULL);
     ret = malloc(sizeof(event_t *) * n);
-    while (n--) {
-        printf("%s\n", namelist[n]->d_name);
-        ret[n] = add_event(n, namelist[n]);
-        free(namelist[n]);
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", namelist[i]->d_name);
+        ret[i - fail] = read_event(namelist[i]);
+        if (ret[i - fail] == NULL)
+            fail++;
+        free(namelist[i]);
     }
+    free(namelist);
     return (ret);
 }

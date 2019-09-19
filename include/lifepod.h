@@ -57,4 +57,6 @@ void print_ship(WINDOW *win, coord_t const coord);
 
 event_t **load_all_event(void);
 
+void free_event(event_t **event);
+
 #endif /*LIFEPOD_H_*/
