@@ -32,8 +32,10 @@ event_t *read_event(const struct dirent *namelist)
     if (file == NULL)
         return (NULL);
     stat(filename, &statbuf);
-    buffer = malloc(sizeof(char) * statbuf.st_size);
+    buffer = malloc(sizeof(char) * (statbuf.st_size + 1));
+    buffer[statbuf.st_size] = '\0';
     fread(buffer, statbuf.st_size, 1, file);
+    printf("%s\n", buffer);
     free(filename);
     fclose(file);
     return (ret);
@@ -48,9 +50,10 @@ event_t **load_all_event(void)
 
     if (n == -1)
         return (NULL);
-    ret = malloc(sizeof(event_t *) * n);
+    ret = malloc(sizeof(event_t *) * (n + 1));
+    ret[n] = NULL;
     for (int i = 0; i < n; i++) {
-        printf("%s\n", namelist[i]->d_name);
+        printf("%s :\n", namelist[i]->d_name);
         ret[i - fail] = read_event(namelist[i]);
         if (ret[i - fail] == NULL)
             fail++;
