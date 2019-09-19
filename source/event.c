@@ -31,7 +31,7 @@ event_t *read_event(const struct dirent *namelist)
     file = fopen(filename, "r");
     if (file == NULL)
         return (NULL);
-    fstat(fileno(file), &statbuf);
+    stat(filename, &statbuf);
     buffer = malloc(sizeof(char) * statbuf.st_size);
     fread(buffer, statbuf.st_size, 1, file);
     free(filename);
