@@ -1,9 +1,10 @@
 image: "registry.dragonalpha.fr/dorfen/ci/minimal:latest"
 stages:
+  - compilation
   - test
 
 test:compilation:
-  stage: test
+  stage: compilation
   script:
     - make
 
