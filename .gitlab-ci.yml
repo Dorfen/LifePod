@@ -3,7 +3,7 @@ stages:
 
 test:compilation:
   stage: test
-  image: "registry.dragonalpha.fr/dorfen/ci/minimal:minimal"
+  image: "registry.dragonalpha.fr/dorfen/ci/minimal:latest"
 
   script:
     - make
