@@ -31,6 +31,14 @@ NOM-CURS    =   $(basename $(notdir $(SRC-CURS)))
 OBJ-CURS    =   $(addprefix object/, $(addsuffix .o, $(NOM-CURS)))
 CFLAGS  =   -L $(CURS-PATH) -l$(CURS) -lncurses
 
+PNAME    =    libparser.a
+PLIB    =    parser
+P-PATH    =    ./lib/parser
+P-SRC     =    $(wildcard $(addprefix $(P-PATH)/, *).c)
+P-NAME     =    $(basename $(notdir $(P-SRC)))
+P-OBJ     =    $(addprefix object/, $(addsuffix .o, $(P-NAME)))
+PFLAGS    =    -L $(P-PATH) -l$(PLIB)
+
 HEADP	=	./include/
 NAME	=	LifePod
 
@@ -47,7 +55,7 @@ CC	=	gcc
 .PHONY: re clean lib curs my tests_run
 
 all: lib $(OBJ)
-	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS) $(CFLAGS)
+	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS) $(CFLAGS) $(PFLAGS)
 	@echo -e "$(GREEN)* * * * * BINARY $(WHITE)$(BOLD)$(NAME)$(END)$(GREEN) COMPLETED * * * * *$(END)"
 
 run: all
@@ -55,8 +63,9 @@ run: all
 
 tests_run: all $(TEST_OBJ)
 	@echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
-	@gcc -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS)
+	@gcc -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS) $(PFLAGS)
 	@./unit_tests
+
 clear:
 	@echo -e "$(BOLD)Deleting junks files$(END)"
 	@rm -fv lib/my/*~
@@ -71,7 +80,7 @@ clean:
 	@rm -f $(OBJ)
 	@echo -e "$(END)$(CYAN)* * * * * DONE * * * * *$(END)"
 
-lib: my curs
+lib: my curs parser
 
 my: $(OBJ-LIB)
 	@ar rc $(addprefix $(LIB-PATH)/, $(LNAME)) $(OBJ-LIB)
@@ -80,6 +89,10 @@ my: $(OBJ-LIB)
 curs: $(OBJ-CURS)
 	@ar rc $(addprefix $(CURS-PATH)/, $(CNAME)) $(OBJ-CURS)
 	@echo -e "$(GREEN)* * * * * LIBRARY $(WHITE)$(BOLD)$(CURS)$(END)$(GREEN) COMPLETED * * * * *$(END)"
+
+parser: $(P-OBJ)
+	@ar rc $(addprefix $(P-PATH)/, $(PNAME)) $(P-OBJ)
+	@echo -e "$(GREEN)* * * * * LIBRARY $(WHITE)$(BOLD)$(PLIB)$(END)$(GREEN) COMPLETED * * * * *$(END)"
 
 tclean:
 	@echo -e "$(BOLD)Deleting tests$(END)"
@@ -117,3 +130,8 @@ object/%.o: $(CURS-PATH)/%.c
 	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
 	|| echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
+
+object/%.o: $(P-PATH)/%.c
+	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
+  || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
