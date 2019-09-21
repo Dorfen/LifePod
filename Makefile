@@ -132,6 +132,6 @@ object/%.o: $(CURS-PATH)/%.c
 	|| echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: $(P-PATH)/%.c
-	@$(CC) -I $(HEADP) -g3 -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
   || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
