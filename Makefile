@@ -64,7 +64,7 @@ run: all
 tests_run: all $(TEST_OBJ)
 	@echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
 	@gcc -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS) $(PFLAGS)
-	@./unit_tests
+	@./unit_tests -j4 $(VERBOSE)
 
 clear:
 	@echo -e "$(BOLD)Deleting junks files$(END)"
@@ -117,7 +117,7 @@ object/%.o: tests/%.c
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: source/%.c
-	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
@@ -132,6 +132,6 @@ object/%.o: $(CURS-PATH)/%.c
 	|| echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: $(P-PATH)/%.c
-	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@$(CC) -I $(HEADP) -g3 -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
   || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"

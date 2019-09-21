@@ -10,7 +10,21 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-int filter_filter(const struct dirent *name)
+event_t *parse_event(char const *buffer)
+{
+    event_t *ret = alloc_event();
+    char **tab = parse_str(buffer, ":", false);
+
+    if (tab == NULL || ret == NULL || my_tablen(tab) < 4)
+        return NULL;
+    ret->system = my_atoi(tab[0]);
+    ret->dmg = my_atoi(tab[1]);
+    ret->max_mult = my_atoi(tab[2]);
+    ret->msg = my_strdup(tab[3]);
+    return ret;
+}
+
+static int filter_filter(const struct dirent *name)
 {
     if (strcmp(name->d_name, ".") == 0 || strcmp(name->d_name, " ..") == 0)
         return (0);
@@ -21,7 +35,7 @@ int filter_filter(const struct dirent *name)
 
 event_t *read_event(const struct dirent *namelist)
 {
-    event_t *ret = alloc_event();
+    event_t *ret = NULL;
     struct stat statbuf;
     char *filename = NULL;
     char *buffer = NULL;
@@ -35,7 +49,7 @@ event_t *read_event(const struct dirent *namelist)
     buffer = malloc(sizeof(char) * (statbuf.st_size + 1));
     buffer[statbuf.st_size] = '\0';
     fread(buffer, statbuf.st_size, 1, file);
-    printf("%s\n", buffer);
+    ret = parse_event(buffer);
     free(filename);
     fclose(file);
     return (ret);
@@ -53,7 +67,6 @@ event_t **load_all_event(void)
     ret = malloc(sizeof(event_t *) * (n + 1));
     ret[n] = NULL;
     for (int i = 0; i < n; i++) {
-        printf("%s :\n", namelist[i]->d_name);
         ret[i - fail] = read_event(namelist[i]);
         if (ret[i - fail] == NULL)
             fail++;
