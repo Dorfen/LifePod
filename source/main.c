@@ -9,7 +9,9 @@
 
 int main(void)
 {
+    int exit = 0;
     ship_t *ship = alloc_ship();
+    event_t **event = NULL;
 
     srand(time(NULL));
     if (ship == NULL)
@@ -18,6 +20,10 @@ int main(void)
         return (84);
     if (game(ship) != 0)
         return (84);
+    if ((event = load_all_event()) == NULL)
+        exit = 84;
+    free_event(event);
     free(ship->scan);
-    return (0);
+    free(ship);
+    return (exit);
 }

@@ -11,6 +11,5 @@ int wbrefresh(WINDOW *win, chtype verch, chtype horch)
 {
     wclear(win);
     box(win, verch, horch);
-    wrefresh(win);
     return (0);
 }

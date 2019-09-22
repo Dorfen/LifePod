@@ -1,48 +1,82 @@
 /*
-** EPITECH PROJECT, 2019
+** PROJECT, 2019
 ** LifePod
 ** File description:
 ** source/event.c
 */
 
 #include "lifepod.h"
+#include <dirent.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-int button(WINDOW *cmd, const char *tab[])
+event_t *parse_event(char const *buffer)
 {
-    const coord_t coord = {4 * COLS / 4, 2 * LINES / 8 + 1};
-    int e = 0;
-    int c = 0;
+    event_t *ret = alloc_event();
+    char **tab = parse_str(buffer, ":", false);
 
-    wbrefresh(cmd, ACS_VLINE, ACS_HLINE);
-    for (int i = coord.x / 4; i < coord.x - 1 && e < 3; i += (coord.x / 4)) {
-        for (int j = 1; j < coord.y - 1; j++)
-            mvwaddch(cmd, j, i, ACS_VLINE);
-        mvwprintw(cmd, coord.y / 2, (i - (coord.x / 4) / 2) -
-                  (strlen(tab[e]) / 2), "%s", tab[e]);
-        e++;
+    if (tab == NULL || ret == NULL || my_tablen(tab) != 4)
+        return NULL;
+    for (int i = 0; i < 3; i++) {
+      if (my_str_isnum(tab[i]) == 0)
+          return NULL;
     }
-    wrefresh(cmd);
-    for (;;) {
-        c = getch();
-        switch (c) {
-        case ('q'): return (0);
-        case ('a'): return (1);
-        case ('z'): return (2);
-        case ('e'): return (3);
-        }
-    }
+    ret->system = my_atoi(tab[0]);
+    ret->dmg = my_atoi(tab[1]);
+    ret->max_mult = my_atoi(tab[2]);
+    ret->msg = my_strdup(tab[3]);
+    return ret;
+}
+
+static int filter_filter(const struct dirent *name)
+{
+    if (strcmp(name->d_name, ".") == 0 || strcmp(name->d_name, " ..") == 0)
+        return (0);
+    if (name->d_type == DT_REG)
+        return (1);
     return (0);
 }
 
-int event(scr_t *scr, ship_t *ship)
+event_t *read_event(const struct dirent *namelist)
 {
-    //int random = rand() % MAX_EVENT;
+    event_t *ret = NULL;
+    struct stat statbuf;
+    char *filename = NULL;
+    char *buffer = NULL;
+    FILE *file = NULL;
 
-/*switch (random) {
-    case(1): event_1(scr, ship); return(1);
-    case(2): event_2(scr, ship); return(2);
-    default: return(0);
-    }*/
-    event_1(scr, ship);
-    return (0);
+    asprintf(&filename, "%s%s", EVENT_DIR, namelist->d_name);
+    file = fopen(filename, "r");
+    if (file == NULL)
+        return (NULL);
+    stat(filename, &statbuf);
+    buffer = malloc(sizeof(char) * (statbuf.st_size + 1));
+    buffer[statbuf.st_size] = '\0';
+    fread(buffer, statbuf.st_size, 1, file);
+    ret = parse_event(buffer);
+    free(filename);
+    free(buffer);
+    fclose(file);
+    return (ret);
+}
+
+event_t **load_all_event(void)
+{
+    event_t **ret = NULL;
+    int fail = 0;
+    struct dirent **namelist = NULL;
+    int n = scandir(EVENT_DIR, &namelist, filter_filter, alphasort);
+
+    if (n == -1)
+        return (NULL);
+    ret = malloc(sizeof(event_t *) * (n + 1));
+    ret[n] = NULL;
+    for (int i = 0; i < n; i++) {
+        ret[i - fail] = read_event(namelist[i]);
+        if (ret[i - fail] == NULL)
+            fail++;
+        free(namelist[i]);
+    }
+    free(namelist);
+    return (ret);
 }

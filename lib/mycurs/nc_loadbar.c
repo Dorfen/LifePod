@@ -17,5 +17,4 @@ void load_bar(WINDOW *box, char const *name, coord_t const coord, int value[2])
         bar_load[i] = '#';
     mvwprintw(box, coord.y, coord.x, "%s:", name);
     mvwprintw(box, coord.y + 1, coord.x, "[%s]", bar_load);
-    wrefresh(box);
 }

@@ -16,6 +16,15 @@
 #define __cold_function
 #endif
 
+#define COLON 1
+#define ATM 2
+#define GRAV 3
+#define TEMP 4
+#define WATER 5
+#define RES 6
+#define LAND 7
+#define BUILD 8
+
 #define ABS(value) (((value) < (0)) ? (-value) : (value))
 
 #define FREE(_p) free((_p)), (_p) = NULL;
