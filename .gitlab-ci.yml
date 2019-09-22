@@ -1,9 +1,9 @@
-image: "registry.dragonalpha.fr/dorfen/ci/minimal:minimal"
+image: "registry.dragonalpha.fr/dorfen/ci/minimal:latest"
 stages:
   - compilation
   - test
 
-compile:is_compiling:
+test:compilation:
   stage: compilation
   script:
     - make
