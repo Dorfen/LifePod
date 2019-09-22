@@ -7,7 +7,23 @@
 
 #include "lifepod.h"
 
-int display_ship_status(WINDOW *status, ship_t *ship)
+inline void refresh_all(scr_t *scr)
+{
+    wrefresh(scr->cmd);
+    wrefresh(scr->status);
+    wrefresh(scr->event);
+    refresh();
+}
+
+void title_win(scr_t *scr)
+{
+    mvwprintw(scr->event, 0, 1, "Logs");
+    mvwprintw(scr->cmd, 0, 1, "Anwser");
+    mvwprintw(scr->status, 0, 1, "Status");
+
+}
+
+void display_ship_status(WINDOW *status, ship_t *ship)
 {
     wclear(status);
     wbrefresh(status, ACS_VLINE, ACS_HLINE);
@@ -20,7 +36,4 @@ int display_ship_status(WINDOW *status, ship_t *ship)
     load_bar(status, "Temperature", (coord_t){1, 17}, (int[2]){ship->scan->temp, 100});
     load_bar(status, "Water", (coord_t){1, 20}, (int[2]){ship->scan->water, 100});
     load_bar(status, "Ressources", (coord_t){1, 23}, (int[2]){ship->scan->res, 100});
-    wrefresh(status);
-    return (0);
 }
-

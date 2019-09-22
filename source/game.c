@@ -25,10 +25,11 @@ int game(ship_t *ship)
     int x = 0;
 
     while (c != 'q') {
+        title_win(scr);
         getmaxyx(scr->event, y, x);
         print_ship(scr->event, y, x);
-        wrefresh(scr->event);
-        refresh();
+        display_ship_status(scr->status, ship);
+        refresh_all(scr);
         c = getch();
     }
     endwin();

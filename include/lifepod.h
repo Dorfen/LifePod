@@ -17,6 +17,8 @@
 #ifndef LIFEPOD_H_
 #define LIFEPOD_H_
 
+#define EVENT_DIR "./event_data/"
+
 typedef struct scr_s {
     WINDOW *event;
     WINDOW *cmd;
@@ -52,7 +54,9 @@ scr_t *build_scr_t(void);
 
 int game(ship_t *ship);
 
-int display_ship_status(WINDOW *scr, ship_t *ship);
+void refresh_all(scr_t *scr);
+void title_win(scr_t *scr);
+void display_ship_status(WINDOW *scr, ship_t *ship);
 
 void print_ship(WINDOW *win, int const y, int const x);
 

@@ -45,7 +45,7 @@ event_t *read_event(const struct dirent *namelist)
     char *buffer = NULL;
     FILE *file = NULL;
 
-    asprintf(&filename, "./event_data/%s", namelist->d_name);
+    asprintf(&filename, "%s%s", EVENT_DIR, namelist->d_name);
     file = fopen(filename, "r");
     if (file == NULL)
         return (NULL);
@@ -65,7 +65,7 @@ event_t **load_all_event(void)
     event_t **ret = NULL;
     int fail = 0;
     struct dirent **namelist = NULL;
-    int n = scandir("./event_data/", &namelist, filter_filter, alphasort);
+    int n = scandir(EVENT_DIR, &namelist, filter_filter, alphasort);
 
     if (n == -1)
         return (NULL);
