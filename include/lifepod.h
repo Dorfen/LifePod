@@ -52,7 +52,7 @@ ship_t *alloc_ship(void);
 event_t *alloc_event(void);
 scr_t *build_scr_t(void);
 
-int game(ship_t *ship);
+int game(scr_t *scr, ship_t *ship, event_t **event);
 
 void refresh_all(scr_t *scr);
 void title_win(scr_t *scr);
@@ -64,5 +64,7 @@ event_t *parse_event(char const *buffer);
 event_t **load_all_event(void);
 
 void free_event(event_t **event);
+
+int event_related(WINDOW *win, event_t **event);
 
 #endif /*LIFEPOD_H_*/

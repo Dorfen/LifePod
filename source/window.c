@@ -20,13 +20,12 @@ void title_win(scr_t *scr)
     mvwprintw(scr->event, 0, 1, "Logs");
     mvwprintw(scr->cmd, 0, 1, "Anwser");
     mvwprintw(scr->status, 0, 1, "Status");
-
 }
 
 void display_ship_status(WINDOW *status, ship_t *ship)
 {
     wclear(status);
-    wbrefresh(status, ACS_VLINE, ACS_HLINE);
+    box(status, ACS_VLINE, ACS_HLINE);
     load_bar(status, "Colons", (coord_t){1, 1}, (int[2]){ship->colon, 1000});
     load_bar(status, "Landing", (coord_t){1, 4}, (int[2]){ship->landing, 100});
     load_bar(status, "Building", (coord_t){1, 7}, (int[2]){ship->build, 100});
