@@ -16,10 +16,10 @@ int main(void)
     srand(time(NULL));
     if (ship == NULL)
         return (84);
-    //if (init_screen() == -1)
-    //    return (84);
-    //if (game(ship) != 0)
-    //    return (84);
+    if (init_screen() == -1)
+        return (84);
+    if (game(ship) != 0)
+        return (84);
     if ((event = load_all_event()) == NULL)
         exit = 84;
     free_event(event);

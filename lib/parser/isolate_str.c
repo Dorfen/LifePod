@@ -19,7 +19,6 @@ static char *extract(char *dest, char const *src, int s, int e)
 
 char *isolate_str(char const *str, char const *sep, int const i, bool val)
 {
-    char quote = 0;
     int j = i;
     char *ret = NULL;
 

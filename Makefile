@@ -101,7 +101,7 @@ tclean:
 
 lclean:
 	@echo -e "$(BOLD)Deleting $(LNAME)$(END)"
-	@rm -f $(OBJ-LIB) $(OBJ-CURS) $(LNAME) $(CNAME)
+	@rm -f $(OBJ-LIB) $(OBJ-CURS) $(P-OBJ) $(LNAME) $(CNAME) $(PNAME)
 	@echo -e "$(CYAN)* * * * * LIBRARIES REMOVED * * * * *$(END)"
 
 fclean: clean

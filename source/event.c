@@ -55,6 +55,7 @@ event_t *read_event(const struct dirent *namelist)
     fread(buffer, statbuf.st_size, 1, file);
     ret = parse_event(buffer);
     free(filename);
+    free(buffer);
     fclose(file);
     return (ret);
 }

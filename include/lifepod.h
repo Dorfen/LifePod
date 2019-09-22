@@ -54,7 +54,7 @@ int game(ship_t *ship);
 
 int display_ship_status(WINDOW *scr, ship_t *ship);
 
-void print_ship(WINDOW *win, coord_t const coord);
+void print_ship(WINDOW *win, int const y, int const x);
 
 event_t *parse_event(char const *buffer);
 event_t **load_all_event(void);

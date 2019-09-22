@@ -19,8 +19,19 @@ static void exit_game(void)
 
 int game(ship_t *ship)
 {
-    //scr_t *scr = build_scr_t();
+    scr_t *scr = build_scr_t();
+    char c = 0;
+    int y = 0;
+    int x = 0;
 
-    //free(scr);
+    while (c != 'q') {
+        getmaxyx(scr->event, y, x);
+        print_ship(scr->event, y, x);
+        wrefresh(scr->event);
+        refresh();
+        c = getch();
+    }
+    endwin();
+    free(scr);
     return (0);
 }
