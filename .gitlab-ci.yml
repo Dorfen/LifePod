@@ -3,6 +3,10 @@ stages:
   - compilation
   - test
 
+cache:
+  paths: 
+  - object/*.o
+    
 test:compilation:
   stage: compilation
   script:
