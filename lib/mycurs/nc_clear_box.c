@@ -7,9 +7,8 @@
 
 #include "my_curse.h"
 
-int wbrefresh(WINDOW *win, chtype verch, chtype horch)
+void clear_box(WINDOW *win, chtype verch, chtype horch)
 {
     wclear(win);
     box(win, verch, horch);
-    return (0);
 }

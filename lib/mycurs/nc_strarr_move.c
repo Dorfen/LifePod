@@ -9,7 +9,7 @@
 
 int nc_strarr_move(WINDOW *win, char **tab, coord_t *coord, int color)
 {
-    wbrefresh(win, ACS_VLINE, ACS_HLINE);
+    clear_box(win, ACS_VLINE, ACS_HLINE);
     (color == -1) ? (color = COLOR_WHITE) : (0);
     init_pair(9, color, COLOR_BLACK);
     wattron(win, COLOR_PAIR(9));

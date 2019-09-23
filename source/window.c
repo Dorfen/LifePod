@@ -18,7 +18,7 @@ inline void refresh_all(scr_t *scr)
 void title_win(scr_t *scr)
 {
     mvwprintw(scr->event, 0, 1, "Logs");
-    mvwprintw(scr->cmd, 0, 1, "Anwser");
+    mvwprintw(scr->cmd, 0, 1, "Answer");
     mvwprintw(scr->status, 0, 1, "Status");
 }
 
