@@ -10,7 +10,7 @@ cache:
 test:compilation:
   stage: compilation
   script:
-    - make
+    - make re
 
 test:tests_run:
   stage: test
