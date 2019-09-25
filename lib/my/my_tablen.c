@@ -7,10 +7,12 @@
 
 #include "my.h"
 
-int my_tablen(char **tab)
+int my_tablen(char const * const *tab)
 {
     int x = 0;
 
+    if (tab == NULL)
+        return -1;
     while (tab[x] != NULL) {
         x = x + 1;
     }

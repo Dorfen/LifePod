@@ -7,11 +7,10 @@
 
 #include "my_curse.h"
 
-int nc_put_str_array(WINDOW *win, char **tab, int color)
+int nc_put_str_array(WINDOW *win, char const * const *tab, int const color)
 {
     int lenght = my_tablen(tab);
 
-    (color == -1) ? (color = COLOR_WHITE) : (0);
     wclear(win);
     box(win, ACS_VLINE, ACS_HLINE);
     wrefresh(win);
