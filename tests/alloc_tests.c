@@ -42,7 +42,7 @@ Test(alloc_tests, alloc_event_struct)
     cr_assert(foo->system == 0);
     cr_assert(foo->dmg == 0);
     cr_assert(foo->max_mult == 0);
-    cr_assert(foo->msg == 0);
+    cr_assert(foo->tab == 0);
     free(foo);
 }
 

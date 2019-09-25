@@ -13,18 +13,21 @@
 event_t *parse_event(char const *buffer)
 {
     event_t *ret = alloc_event();
+    char **msg = NULL;
     char **tab = parse_str(buffer, ":", false);
 
-    if (tab == NULL || ret == NULL || my_tablen(tab) != 4)
+    if (tab == NULL || ret == NULL || my_tablen((char const * const*)tab) != 4)
         return NULL;
     for (int i = 0; i < 3; i++) {
       if (my_str_isnum(tab[i]) == 0)
           return NULL;
     }
+    msg = parse_str(tab[3], "\n", false);
     ret->system = my_atoi(tab[0]);
     ret->dmg = my_atoi(tab[1]);
     ret->max_mult = my_atoi(tab[2]);
-    ret->msg = my_strdup(tab[3]);
+    ret->tab = msg;
+    free_tab(tab);
     return ret;
 }
 

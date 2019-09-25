@@ -40,7 +40,7 @@ Test(parse_event_test, is_event_corectly_loaded)
     cr_assert_eq(ret->system, COLON);
     cr_assert_eq(ret->dmg, 10);
     cr_assert_eq(ret->max_mult, 5);
-    cr_assert_str_eq(ret->msg, "Some cryocell broke, resulting in loosing some colon.");
-    free(ret->msg);
+    cr_assert_str_eq(ret->tab[0], "Some cryocell broke, resulting in loosing some colon.");
+    free_tab(ret->tab);
     free(ret);
 }

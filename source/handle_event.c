@@ -7,11 +7,12 @@
 
 #include "lifepod.h"
 
-int event_related(WINDOW *win, event_t **event)
+int event_related(WINDOW *win, event_t *event, char const input, ship_t *ship)
 {
-    if (win == NULL || event == NULL)
+    if (win == NULL || event == NULL || event->tab == NULL)
         return 1;
-    mvwprintw(win, 3, 3, event[0]->msg);
-    mvwprintw(win, 4, 3, event[1]->msg);
+    for (int i = 0; event->tab[i] != NULL; i++) {
+        mvwprintw(win, 3 + i, 3, event->tab[i]);
+    }
     return 0;
 }

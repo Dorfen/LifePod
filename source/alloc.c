@@ -44,7 +44,7 @@ event_t *alloc_event(void)
     ret->system = 0;
     ret->dmg = 0;
     ret->max_mult = 0;
-    ret->msg = NULL;
+    ret->tab = NULL;
     return (ret);
 }
 

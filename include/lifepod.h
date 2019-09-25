@@ -29,7 +29,7 @@ typedef struct event_s {
     short system;
     unsigned int dmg;
     unsigned int max_mult;
-    char *msg;
+    char **tab;
 } event_t;
 
 typedef struct scan_s {
@@ -63,8 +63,9 @@ void print_ship(WINDOW *win, int const y, int const x);
 event_t *parse_event(char const *buffer);
 event_t **load_all_event(void);
 
+void free_tab(char **tab);
 void free_event(event_t **event);
 
-int event_related(WINDOW *win, event_t **event);
+int event_related(WINDOW *win, event_t *event, char const input, ship_t *ship);
 
 #endif /*LIFEPOD_H_*/
