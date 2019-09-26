@@ -21,7 +21,7 @@ int nb_str(char const *str, char const *seperator, bool const val)
             quote = is_quote(str, i, quote);
         if (quote != 0)
             continue;
-        if (is_separated(str, seperator, i) == 1)
+        if (is_separated(str, seperator, i) == 1 && str[i + 1] != '\0')
             ret++;
     }
     return(ret);
