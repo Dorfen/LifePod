@@ -45,6 +45,7 @@ event_t *alloc_event(void)
     ret->dmg = 0;
     ret->max_mult = 0;
     ret->tab = NULL;
+    ret->button = NULL;
     return (ret);
 }
 

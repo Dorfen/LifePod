@@ -10,25 +10,39 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-event_t *parse_event(char const *buffer)
+static event_t *fill_event(char **value, char **msg, char **button)
 {
     event_t *ret = alloc_event();
-    char **msg = NULL;
-    char **tab = parse_str(buffer, ":", false);
 
-    if (tab == NULL || ret == NULL || my_tablen((char const * const*)tab) != 4)
+    if (value == NULL || msg == NULL || button == NULL)
         return NULL;
-    for (int i = 0; i < 3; i++) {
-      if (my_str_isnum(tab[i]) == 0)
-          return NULL;
-    }
-    msg = parse_str(tab[3], "\n", false);
-    ret->system = my_atoi(tab[0]);
-    ret->dmg = my_atoi(tab[1]);
-    ret->max_mult = my_atoi(tab[2]);
+    for (int i = 0; i < 3; i++)
+        if (my_str_isnum(value[i]) == 0)
+            return NULL;
+    ret->system = my_atoi(value[0]);
+    ret->dmg = my_atoi(value[1]);
+    ret->max_mult = my_atoi(value[2]);
     ret->tab = msg;
-    free_tab(tab);
+    ret->button = button;
     return ret;
+}
+
+event_t *parse_event(char const *buffer)
+{
+    char **tab = parse_str(buffer, "\n", false);
+    char **value = NULL;
+    char **msg = NULL;
+    char **button = NULL;
+
+    if (buffer == NULL || tab == NULL || my_tablen((char const * const*)tab) < 3)
+        return NULL;
+    value = parse_str(tab[0], ":", false);
+    button = parse_str(tab[1], ":", false);
+    msg  = my_tabdup((char const *const *)tab);
+    if (value == NULL || value == NULL || button == NULL)
+        return NULL;
+    free_tab(tab);
+    return fill_event(value, msg, button);
 }
 
 static int filter_filter(const struct dirent *name)

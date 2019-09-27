@@ -39,6 +39,7 @@ typedef struct event_s {
     unsigned int dmg;
     unsigned int max_mult;
     char **tab;
+    char **button;
 } event_t;
 
 typedef struct scan_s {
@@ -75,6 +76,6 @@ event_t **load_all_event(void);
 void free_tab(char **tab);
 void free_event(event_t **event);
 
-int event_related(WINDOW *win, event_t *event, char const input, ship_t *ship);
+int event_related(WINDOW *win, WINDOW *cmd, event_t *event, ship_t *ship);
 
 #endif /*LIFEPOD_H_*/
