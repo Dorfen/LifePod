@@ -38,7 +38,7 @@ event_t *parse_event(char const *buffer)
         return NULL;
     value = parse_str(tab[0], ":", false);
     button = parse_str(tab[1], ":", false);
-    msg  = my_tabdup((char const *const *)tab);
+    msg  = my_tabdup((char const *const *)tab + 2);
     if (value == NULL || value == NULL || button == NULL)
         return NULL;
     free_tab(tab);
