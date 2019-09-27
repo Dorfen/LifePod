@@ -17,6 +17,15 @@
 #ifndef LIFEPOD_H_
 #define LIFEPOD_H_
 
+#define COLON 1
+#define ATM 2
+#define GRAV 3
+#define TEMP 4
+#define WATER 5
+#define RES 6
+#define LAND 7
+#define BUILD 8
+
 #define EVENT_DIR "./event_data/"
 
 typedef struct scr_s {
