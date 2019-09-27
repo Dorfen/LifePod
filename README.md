@@ -48,4 +48,10 @@ EOF
 7. landing system
 8. building system
 
+> All the systems have 100 HP, execpt for the nubers of colonist : 1000
+
+*base_dmg* is the amout of damage the system will take if ***multiplier_max_value*** is equal to 1
+
+*multiplier_max_value* will be multiplied with the ***base_dmg*** to get the final value of damage taken by the ship.
+
 See an example in the [event folder](event_data/1.event)
