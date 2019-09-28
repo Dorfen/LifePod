@@ -13,7 +13,7 @@ bool is_event_loaded(event_t *event)
         return false;
     if (event->tab == NULL || event->button == NULL)
         return false;
-    if (event->system < 0 || event->system > 8)
+    if (event->system < 1 || event->system > 8)
         return false;
     if (event->dmg < 1 || event->max_mult < 1)
         return false;
@@ -32,7 +32,7 @@ int event_related(WINDOW *win, WINDOW *cmd, event_t *event, ship_t *ship)
         mvwprintw(win, 3 + i, 3, event->tab[i]);
     size = my_tablen((char const *const *)event->button);
     for (int i = 0; event->button[i] != NULL; i++) {
-        mvwprintw(cmd, coord[0] / 2, coord[1] * i / size + (size), event->button[i]);
+        mvwprintw(cmd, coord[0] / 2, coord[1] * i / size + size, event->button[i]);
     }
     return 0;
 }

@@ -76,6 +76,7 @@ event_t **load_all_event(void);
 void free_tab(char **tab);
 void free_event(event_t **event);
 
+bool is_event_loaded(event_t *event);
 int event_related(WINDOW *win, WINDOW *cmd, event_t *event, ship_t *ship);
 
 #endif /*LIFEPOD_H_*/
