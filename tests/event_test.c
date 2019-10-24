@@ -35,7 +35,7 @@ Test(parse_event_test, wrong)
 
 Test(parse_event_test, is_event_corectly_loaded)
 {
-    event_t *ret = parse_event("1:10:5:Some cryocell broke, resulting in loosing some colon.");
+    event_t *ret = parse_event("1:10:5:\nButton:nButton\nSome cryocell broke, resulting in loosing some colon.");
 
     cr_assert_eq(ret->system, COLON);
     cr_assert_eq(ret->dmg, 10);

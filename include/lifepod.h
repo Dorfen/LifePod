@@ -17,6 +17,15 @@
 #ifndef LIFEPOD_H_
 #define LIFEPOD_H_
 
+#define COLON 1
+#define ATM 2
+#define GRAV 3
+#define TEMP 4
+#define WATER 5
+#define RES 6
+#define LAND 7
+#define BUILD 8
+
 #define EVENT_DIR "./event_data/"
 
 typedef struct scr_s {
@@ -30,6 +39,7 @@ typedef struct event_s {
     unsigned int dmg;
     unsigned int max_mult;
     char **tab;
+    char **button;
 } event_t;
 
 typedef struct scan_s {
@@ -66,6 +76,7 @@ event_t **load_all_event(void);
 void free_tab(char **tab);
 void free_event(event_t **event);
 
-int event_related(WINDOW *win, event_t *event, char const input, ship_t *ship);
+bool is_event_loaded(event_t *event);
+int event_related(WINDOW *win, WINDOW *cmd, event_t *event, ship_t *ship);
 
 #endif /*LIFEPOD_H_*/

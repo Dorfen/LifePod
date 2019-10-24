@@ -9,6 +9,8 @@
 
 static void freedom(event_t **event, ship_t *ship)
 {
+    if (event == NULL || ship == NULL)
+        return;
     free_event(event);
     free(ship->scan);
     free(ship);

@@ -27,7 +27,7 @@ int game(scr_t *scr, ship_t *ship, event_t **event)
         title_win(scr);
         print_ship(scr->event, coord[0], coord[1]);
         display_ship_status(scr->status, ship);
-        if (event_related(scr->event, event[0], c, ship) != 0)
+        if (event_related(scr->event, scr->cmd, event[0], ship) != 0)
             return 84;
         if (ship->colon == 0) {
             exit_game();
