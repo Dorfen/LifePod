@@ -9,9 +9,12 @@
 
 void load_bar(WINDOW *box, char const *name, coord_t const coord, int value[2])
 {
-    const int bar_size = 19;
-    char bar_load[] = {"-------------------"};
+    int bar_size = getmaxx(box) - 4;
+    char *bar_load = malloc(sizeof(char) * (bar_size + 1));
 
+    bar_load[bar_size] = '\0';
+    for (int i = 0; i < bar_size; i++)
+        bar_load[i] = '-';
     value[0] = (value[0] * bar_size) / value[1];
     for (int i = 0; i <= value[0] && bar_load[i] != '\0'; i++)
         bar_load[i] = '#';
