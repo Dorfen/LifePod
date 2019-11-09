@@ -1,4 +1,4 @@
-image: "registry.dragonalpha.fr/infra/ci/minimal:latest"
+image: "registry.dragonalpha.fr/infra/ci/minimal-c:latest"
 stages:
   - compilation
   - test
