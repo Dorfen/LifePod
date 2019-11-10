@@ -26,6 +26,13 @@
 #define LAND 7
 #define BUILD 8
 
+#define OPT_ONE 'a'
+#define OPT_TWO 'z'
+#define OPT_THREE 'e'
+#define OPT_FOUR 'r'
+#define OPT_QUIT 'q'
+
+
 #define EVENT_DIR "./event_data/"
 
 typedef struct scr_s {
@@ -77,6 +84,9 @@ void free_tab(char **tab);
 void free_event(event_t **event);
 
 bool is_event_loaded(event_t *event);
-int event_related(WINDOW *win, WINDOW *cmd, event_t *event, ship_t *ship);
+int event_related(WINDOW *win, WINDOW *cmd, event_t *event);
+
+bool is_good_input(unsigned int nb_buttons, char input);
+int button_related(ship_t *ship, event_t *event);
 
 #endif /*LIFEPOD_H_*/
