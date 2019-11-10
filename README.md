@@ -9,11 +9,6 @@
 The player is a AI in a spaceship. The goal is to find a suitable plantet for humain colonists to live.
 
 ## The game:
-```mermaid
-graph TD;
-Event-->Planet
-Planet-->Event
-```
 Event is a random event chosen between all the `.event` files located in the `event_data` directory.
 It will damage the ship and will lower score of the player a the end. 
 
