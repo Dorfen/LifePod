@@ -20,7 +20,7 @@ bool is_event_loaded(event_t *event)
     return true;
 }
 
-int event_related(WINDOW *win, WINDOW *cmd, event_t *event, ship_t *ship)
+int event_related(WINDOW *win, WINDOW *cmd, event_t *event)
 {
     int size = -1;
     int coord[2] =  {-1, -1};
