@@ -1,3 +1,4 @@
-system:base_dmg:multiplier_mx_value
-button:button:...
+nb_button
+button:system:base_dmg:max_multiplier
+...
 phrase

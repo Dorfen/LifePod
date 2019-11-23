@@ -23,17 +23,17 @@ int main(void)
     ship_t *ship = alloc_ship();
     event_t **event = NULL;
 
-    srand(time(NULL));
-    if (ship == NULL)
-        goto FREE_EXIT;
-    if (init_screen() == -1)
-        goto FREE_EXIT;
-    scr = build_scr_t();
+   // srand(time(NULL));
+   // if (ship == NULL)
+   //     goto FREE_EXIT;
+   // if (init_screen() == -1)
+   //     goto FREE_EXIT;
+   // scr = build_scr_t();
     if ((event = load_all_event()) == NULL)
         goto FREE_EXIT;
-    if (game(scr, ship, event) != 0)
-        goto FREE_EXIT;
-    endwin();
+   // if (game(scr, ship, event) != 0)
+   //     goto FREE_EXIT;
+   // endwin();
     END_FREE:freedom(event, ship);
     return (exit);
     FREE_EXIT: exit = 84;

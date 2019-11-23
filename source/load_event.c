@@ -10,39 +10,46 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-static event_t *fill_event(char **value, char **msg, char **button)
+button_t *parse_button(char const * const buffer)
 {
-    event_t *ret = alloc_event();
+    button_t *ret = alloc_button();
+    char **tab = parse_str(buffer, ":", false);
+    short system = 0;
 
-    if (value == NULL || msg == NULL || button == NULL)
+    if (ret == NULL || tab == NULL || buffer == NULL)
         return NULL;
-    for (int i = 0; i < 3; i++)
-        if (my_str_isnum(value[i]) == 0)
-            return NULL;
-    ret->system = my_atoi(value[0]);
-    ret->dmg = my_atoi(value[1]);
-    ret->max_mult = my_atoi(value[2]);
-    ret->tab = msg;
-    ret->button = button;
+    system = atoi(tab[1]);
+    if (system <= 0 || system > 8)
+        return ret;
+    else
+        ret->system = system;
+    ret->msg = strdup(tab[0]);
+    ret->dmg = atoi(tab[2]);
+    ret->max_mult = atoi(tab[3]);
+    free_tab(tab);
     return ret;
 }
 
 event_t *parse_event(char const *buffer)
 {
+    event_t *ret = alloc_event();
+    unsigned int i = 0;
     char **tab = parse_str(buffer, "\n", false);
-    char **value = NULL;
-    char **msg = NULL;
-    char **button = NULL;
 
-    if (buffer == NULL || tab == NULL || my_tablen((char const * const*)tab) < 3)
+    if (buffer == NULL || tab == NULL || my_tablen(tab) < 3)
         return NULL;
-    value = parse_str(tab[0], ":", false);
-    button = parse_str(tab[1], ":", false);
-    msg  = my_tabdup((char const *const *)tab + 2);
-    if (value == NULL || msg == NULL || button == NULL)
+    ret->nb_buttons = atoi(tab[0]);
+    ret->button = malloc(sizeof(button_t *) * (ret->nb_buttons + 1));
+    if (ret->button != NULL) {
+        ret->button[ret->nb_buttons] = NULL;
+        for (; i < ret->nb_buttons; i++)
+            ret->button[i] = parse_button(tab[i + 1]);
+    }
+    ret->tab = my_tabdup(tab + i + 1);
+    if (ret->tab == NULL || ret->button == NULL)
         return NULL;
     free_tab(tab);
-    return fill_event(value, msg, button);
+    return ret;
 }
 
 static int filter_filter(const struct dirent *name)

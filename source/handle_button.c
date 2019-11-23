@@ -27,9 +27,9 @@ int button_related(ship_t *ship, event_t *event)
 {
     char c = 0;
 
-    if (ship == NULL || event == NULL || my_tablen((char const *const *)event->button) == 0)
+    if (ship == NULL || event == NULL || event->nb_buttons == 0)
         return -1;
-    while (is_good_input(my_tablen((char const *const *)event->button), c) == false)
+    while (is_good_input(event->nb_buttons, c) == false)
         c = getch();
     switch (c) {
         case OPT_ONE:

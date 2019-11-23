@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int my_put_str_array(char const * const *tab)
+int my_put_str_array(char **tab)
 {
     unsigned int lenght = my_tablen(tab);
 

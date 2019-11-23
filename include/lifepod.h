@@ -41,12 +41,17 @@ typedef struct scr_s {
     WINDOW *status;
 } scr_t;
 
-typedef struct event_s {
+typedef struct button_s {
     short system;
     unsigned int dmg;
     unsigned int max_mult;
+    char *msg;
+} button_t;
+
+typedef struct event_s {
     char **tab;
-    char **button;
+    unsigned int nb_buttons;
+    button_t **button;
 } event_t;
 
 typedef struct scan_s {
@@ -67,6 +72,7 @@ typedef struct ship_s {
 scan_t *alloc_scan(void);
 ship_t *alloc_ship(void);
 event_t *alloc_event(void);
+button_t *alloc_button(void);
 scr_t *build_scr_t(void);
 
 int game(scr_t *scr, ship_t *ship, event_t **event);
@@ -77,6 +83,7 @@ void display_ship_status(WINDOW *scr, ship_t *ship);
 
 void print_ship(WINDOW *win, int const y, int const x);
 
+button_t *parse_button(char const * const buffer);
 event_t *parse_event(char const *buffer);
 event_t **load_all_event(void);
 

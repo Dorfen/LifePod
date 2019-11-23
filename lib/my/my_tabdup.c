@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-char **my_tabdup(char const *const *tab)
+char **my_tabdup(char **tab)
 {
     char **ret = NULL;
     int len = my_tablen(tab);

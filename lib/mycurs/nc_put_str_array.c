@@ -7,7 +7,7 @@
 
 #include "my_curse.h"
 
-int nc_put_str_array(WINDOW *win, char const * const *tab, int const color)
+int nc_put_str_array(WINDOW *win, char **tab, int const color)
 {
     int lenght = my_tablen(tab);
 

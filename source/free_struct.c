@@ -16,6 +16,17 @@ void free_tab(char **tab)
     free(tab);
 }
 
+void free_button(button_t **but)
+{
+    if (but == NULL)
+        return;
+    for (int i = 0; but[i] != NULL; i++) {
+        free(but[i]->msg);
+        free(but[i]);
+    }
+    free(but);
+}
+
 void free_event(event_t **event)
 {
     if (event == NULL)
@@ -24,7 +35,7 @@ void free_event(event_t **event)
         if (event[i]->tab != NULL)
             free_tab(event[i]->tab);
         if (event[i]->button != NULL)
-            free_tab(event[i]->button);
+            free_button(event[i]->button);
         free(event[i]);
     }
     free(event);
