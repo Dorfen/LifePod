@@ -17,6 +17,18 @@ static void exit_game(void)
     getch();
 }
 
+int effect_button(ship_t *ship, event_t *event)
+{
+    int input = button_related(ship, event);
+
+    if (ship == NULL || event == NULL || input == -1)
+        return -1;
+    if ((unsigned int)input > event->nb_buttons)
+        return -1;
+    ship->colon -= 100;
+    return 0;
+}
+
 int game(scr_t *scr, ship_t *ship, event_t **event)
 {
     char c = 0;
@@ -30,10 +42,8 @@ int game(scr_t *scr, ship_t *ship, event_t **event)
         if (event_related(scr->event, scr->cmd, event[0]) != 0)
             break;
         refresh_all(scr);
-        if (button_related(ship, event[0]) == -1)
+        if (effect_button(ship, event[0]) == -1)
             break;
-        else
-            ship->colon -= 100;
         if (ship->colon == 0) {
             exit_game();
             break;
