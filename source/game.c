@@ -25,7 +25,7 @@ int effect_button(ship_t *ship, event_t *event)
         return -1;
     if ((unsigned int)input > event->nb_buttons)
         return -1;
-    ship->colon -= 100;
+    ship = apply_effect(ship, event->button[input - 1]);
     return 0;
 }
 

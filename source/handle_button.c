@@ -23,6 +23,57 @@ bool is_good_input(unsigned int nb_buttons, char input)
     }
 }
 
+static int compute_dmg(const button_t *button)
+{
+    int mult = 0;
+    int dmg = 0;
+
+    if (button == NULL) {
+        fprintf(stderr, "Button is null\n");
+        return -1;
+    }
+    fprintf(stderr, "%i : %i\n", button->dmg, button->max_mult);
+    dmg = rand() % button->dmg;
+    mult = rand() % button->max_mult;
+    return dmg * mult;
+}
+
+ship_t *apply_effect(ship_t *ship, const button_t *button)
+{
+    int val = compute_dmg(button);
+    
+    if (val == -1)
+        return (ship);
+    switch (button->system) {
+        case COLON:
+            ship->colon -= val;
+            break;
+        case ATM:
+            ship->scan->atm -= val;
+            break;
+        case GRAV:
+            ship->scan->grav -= val;
+            break;
+        case TEMP:
+            ship->scan->temp -= val;
+            break;
+        case WATER:
+            ship->scan->water -= val;
+            break;
+        case RES:
+            ship->scan->res -= val;
+            break;
+        case LAND:
+            ship->landing -= val;
+            break;
+        case BUILD:
+            ship->build -= val;
+        default:
+            break;
+    }
+    return ship;
+}
+
 int button_related(ship_t *ship, event_t *event)
 {
     char c = 0;

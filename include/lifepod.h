@@ -94,6 +94,7 @@ bool is_event_loaded(event_t *event);
 int event_related(WINDOW *win, WINDOW *cmd, event_t *event);
 
 bool is_good_input(unsigned int nb_buttons, char input);
+ship_t *apply_effect(ship_t *ship, const button_t *button);
 int button_related(ship_t *ship, event_t *event);
 
 #endif /*LIFEPOD_H_*/
