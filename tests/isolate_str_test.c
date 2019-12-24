@@ -8,7 +8,7 @@
 #include <criterion/criterion.h>
 #include "parser.h"
 
-const char *str_extract = "This is a test";
+const char *str_extract = "This is a test\n";
 
 Test(is_isolate_str_test, str_is_null)
 {

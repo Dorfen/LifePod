@@ -44,9 +44,9 @@ int my_isprintable(char const c);
 int my_showstr(char const *str);
 char *my_strcat(char *dest, char const *src);
 char *my_strncat(char *dest, char const *src, int nb);
-int my_tablen(char const *const *str);
+int my_tablen(char **str);
 char **my_str_to_word_array(char const *str);
-int my_put_str_array(char const * const *tab);
+int my_put_str_array(char **tab);
 int my_atoi(char *str);
 int is_smaller(int a, int b);
 int is_greater(int a, int b);
@@ -57,6 +57,6 @@ char *my_strmcpy(char *dest, char const *src, int n);
 char *my_strdup(char const *str);
 char *my_strmncpy(char *dest, char *src, int s, int e);
 char *my_str_filler(char *dest, int size);
-char **my_tabdup(char const *const *tab);
+char **my_tabdup(char **tab);
 
 #endif /*_MY_H_*/

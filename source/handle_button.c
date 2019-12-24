@@ -23,13 +23,65 @@ bool is_good_input(unsigned int nb_buttons, char input)
     }
 }
 
+static int compute_dmg(const button_t *button)
+{
+    int mult = 0;
+    int dmg = 0;
+
+    if (button == NULL) {
+        fprintf(stderr, "Button is null\n");
+        return -1;
+    }
+    fprintf(stderr, "Damage : %i * %i\n", button->dmg, button->max_mult);
+    dmg = rand() % button->dmg;
+    mult = rand() % button->max_mult;
+    return dmg * mult;
+}
+
+ship_t *apply_effect(ship_t *ship, const button_t *button)
+{
+    int val = compute_dmg(button);
+
+    if (val == -1)
+        return (ship);
+    switch (button->system) {
+        case COLON:
+            ship->colon -= val;
+            break;
+        case ATM:
+            ship->scan->atm -= val;
+            break;
+        case GRAV:
+            ship->scan->grav -= val;
+            break;
+        case TEMP:
+            ship->scan->temp -= val;
+            break;
+        case WATER:
+            ship->scan->water -= val;
+            break;
+        case RES:
+            ship->scan->res -= val;
+            break;
+        case LAND:
+            ship->landing -= val;
+            break;
+        case BUILD:
+            ship->build -= val;
+            break;
+        default:
+            break;
+    }
+    return ship;
+}
+
 int button_related(ship_t *ship, event_t *event)
 {
     char c = 0;
 
-    if (ship == NULL || event == NULL || my_tablen((char const *const *)event->button) == 0)
+    if (ship == NULL || event == NULL || event->nb_buttons == 0)
         return -1;
-    while (is_good_input(my_tablen((char const *const *)event->button), c) == false)
+    while (is_good_input(event->nb_buttons, c) == false)
         c = getch();
     switch (c) {
         case OPT_ONE:

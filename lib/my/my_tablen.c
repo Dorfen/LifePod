@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int my_tablen(char const * const *tab)
+int my_tablen(char **tab)
 {
     int x = 0;
 

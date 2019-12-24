@@ -41,12 +41,23 @@ event_t *alloc_event(void)
 
     if (ret == NULL)
         return (NULL);
-    ret->system = 0;
-    ret->dmg = 0;
-    ret->max_mult = 0;
     ret->tab = NULL;
+    ret->nb_buttons = 0;
     ret->button = NULL;
     return (ret);
+}
+
+button_t *alloc_button(void)
+{
+    button_t *ret = malloc(sizeof(button_t));
+
+    if (ret == NULL)
+        return NULL;
+    ret->system = 0;
+    ret->dmg = 0;
+    ret->max_mult = 1;
+    ret->msg = NULL;
+    return ret;
 }
 
 scr_t *build_scr_t(void)

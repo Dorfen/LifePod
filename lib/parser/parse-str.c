@@ -13,14 +13,17 @@ char **parse_str(char const *str, char const *separator, bool const quote)
     int cur = 0;
     int nb = nb_str(str, separator, quote);
 
-    if (str == NULL || separator == NULL || nb == -1)
+    if (str == NULL || str[0] == '\0' || separator == NULL || nb == -1)
         return (NULL);
     ret = malloc(sizeof(char *) * (nb + 1));
     if (ret == NULL)
         return NULL;
     ret[nb] = NULL;
     for (int i = 0; str[i] != '\0'; i++) {
-        ret[cur++] = isolate_str(str, separator, i, quote);
+        ret[cur] = isolate_str(str, separator, i, quote);
+        if (ret[cur][strlen(ret[cur]) - 1] == '\n')
+            ret[cur][strlen(ret[cur]) - 1] = '\0';
+        cur++;
         for(;is_separated(str, separator, i) == 0 && str[i + 1] != '\0'; i++);
     }
     return (ret);

@@ -8,7 +8,7 @@
 #include <criterion/criterion.h>
 #include "parser.h"
 
-const char *separator = "This is a test";
+const char *separator = "This is a test\n";
 const int len = 14;
 
 Test(is_separated_fun, str_is_null)

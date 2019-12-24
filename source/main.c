@@ -25,15 +25,17 @@ int main(void)
 
     srand(time(NULL));
     if (ship == NULL)
-        exit = 84;
+        goto FREE_EXIT;
     if (init_screen() == -1)
-        exit = 84;
+        goto FREE_EXIT;
     scr = build_scr_t();
     if ((event = load_all_event()) == NULL)
-        exit = 84;
+        goto FREE_EXIT;
     if (game(scr, ship, event) != 0)
-        exit = 84;
+        goto FREE_EXIT;
     endwin();
-    freedom(event, ship);
+    END_FREE:freedom(event, ship);
     return (exit);
+    FREE_EXIT: exit = 84;
+    goto END_FREE;
 }
