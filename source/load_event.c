@@ -16,11 +16,11 @@ button_t *parse_button(char const * const buffer)
     char **tab = parse_str(buffer, ":", false);
     short system = 0;
 
-    if (ret == NULL || tab == NULL || buffer == NULL)
+    if (ret == NULL || tab == NULL || my_tablen(tab) != 4 || buffer == NULL)
         return NULL;
     system = atoi(tab[1]);
     if (system <= 0 || system > 8)
-        return ret;
+        return NULL;
     else
         ret->system = system;
     ret->msg = strdup(tab[0]);
