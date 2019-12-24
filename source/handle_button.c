@@ -32,7 +32,7 @@ static int compute_dmg(const button_t *button)
         fprintf(stderr, "Button is null\n");
         return -1;
     }
-    fprintf(stderr, "%i : %i\n", button->dmg, button->max_mult);
+    fprintf(stderr, "Damage : %i * %i\n", button->dmg, button->max_mult);
     dmg = rand() % button->dmg;
     mult = rand() % button->max_mult;
     return dmg * mult;
@@ -41,7 +41,7 @@ static int compute_dmg(const button_t *button)
 ship_t *apply_effect(ship_t *ship, const button_t *button)
 {
     int val = compute_dmg(button);
-    
+
     if (val == -1)
         return (ship);
     switch (button->system) {
@@ -68,6 +68,7 @@ ship_t *apply_effect(ship_t *ship, const button_t *button)
             break;
         case BUILD:
             ship->build -= val;
+            break;
         default:
             break;
     }

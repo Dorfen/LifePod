@@ -32,7 +32,7 @@
 #define OPT_FOUR 'r'
 #define OPT_QUIT 'q'
 
-
+#define EVENT_NUM 2
 #define EVENT_DIR "./event_data/"
 
 typedef struct scr_s {
