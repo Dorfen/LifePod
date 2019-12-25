@@ -27,7 +27,8 @@ The game end if
 
 ## The event files
 ```
-system:base_dmg:multiplier_max_value
+nb_button
+button_text:system:base_dmg:multiplier_max_value
 # The text that will be displayed to the player, when the event will be displayed.
 # It can be 10 lines of alphanumeric character.
 { ... }
