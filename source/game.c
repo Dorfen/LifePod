@@ -54,6 +54,5 @@ int game(scr_t *scr, ship_t *ship, event_t **event)
             break;
         }
     }
-    free(scr);
     return 0;
 }

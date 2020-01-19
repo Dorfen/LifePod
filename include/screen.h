@@ -16,6 +16,7 @@ typedef struct scr_s {
     WINDOW *cmd;
     WINDOW *status;
     void (* rebox_scr)(struct scr_s *scr);
+    void (* remove_win)(struct scr_s *scr);
 } scr_t;
 
 scr_t *new_scr(void);

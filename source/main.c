@@ -7,10 +7,12 @@
 
 #include "lifepod.h"
 
-static void freedom(event_t **event, ship_t *ship)
+static void freedom(event_t **event, ship_t *ship, scr_t *scr)
 {
-    if (event == NULL || ship == NULL)
+    if (event == NULL || ship == NULL || scr == NULL)
         return;
+    scr->remove_win(scr);
+    free(scr);
     free_event(event);
     free(ship->scan);
     free(ship);
@@ -34,7 +36,7 @@ int main(void)
     if (game(scr, ship, event) != 0)
         goto FREE_EXIT;
     endwin();
-    END_FREE:freedom(event, ship);
+    END_FREE:freedom(event, ship, scr);
     return (exit);
     FREE_EXIT: exit = 84;
     goto END_FREE;
