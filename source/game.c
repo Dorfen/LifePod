@@ -23,7 +23,7 @@ int effect_button(ship_t *ship, event_t *event)
 
     if (ship == NULL || event == NULL || input == -1)
         return -1;
-    if ((unsigned int)input > event->nb_buttons)
+    if (input > event->nb_buttons)
         return 0;
     ship = apply_effect(ship, event->button[input - 1]);
     return 0;
@@ -41,13 +41,12 @@ int game(scr_t *scr, ship_t *ship, event_t **event)
         print_ship(scr->event, coord[0], coord[1]);
         display_ship_status(scr->status, ship);
         val = rand() % (EVENT_NUM - 1);
-        fprintf(stderr, "Event : %i\n", val);
         if (event_related(scr->event, scr->cmd, event[val]) != 0)
             break;
         refresh_all(scr);
         if (effect_button(ship, event[0]) == -1)
             break;
-        if (ship->colon == 0) {
+        if (ship->colon < 0) {
             exit_game();
             break;
         }

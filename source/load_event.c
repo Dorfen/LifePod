@@ -33,7 +33,7 @@ button_t *parse_button(char const * const buffer)
 event_t *parse_event(char const *buffer)
 {
     event_t *ret = alloc_event();
-    unsigned int i = 0;
+    int i = 0;
     char **tab = parse_str(buffer, "\n", false);
 
     if (buffer == NULL || tab == NULL || my_tablen(tab) < 3)

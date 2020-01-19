@@ -43,30 +43,30 @@ typedef struct scr_s {
 
 typedef struct button_s {
     short system;
-    unsigned int dmg;
-    unsigned int max_mult;
+    int dmg;
+    int max_mult;
     char *msg;
 } button_t;
 
 typedef struct event_s {
     char **tab;
-    unsigned int nb_buttons;
+    int nb_buttons;
     button_t **button;
 } event_t;
 
 typedef struct scan_s {
-    unsigned int atm;
-    unsigned int grav;
-    unsigned int temp;
-    unsigned int water;
-    unsigned int res;
+    int atm;
+    int grav;
+    int temp;
+    int water;
+    int res;
 } scan_t;
 
 typedef struct ship_s {
-    unsigned int colon;
+    int colon;
     scan_t *scan;
-    unsigned int landing;
-    unsigned int build;
+    int landing;
+    int build;
 } ship_t;
 
 scan_t *alloc_scan(void);
