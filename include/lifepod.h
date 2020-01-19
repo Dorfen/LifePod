@@ -12,6 +12,7 @@
 #include "my_curse.h"
 #include "parser.h"
 #include "my.h"
+#include "screen.h"
 #include "macros.h"
 
 #ifndef LIFEPOD_H_
@@ -32,14 +33,8 @@
 #define OPT_FOUR 'r'
 #define OPT_QUIT 'q'
 
-#define EVENT_NUM 2
+#define EVENT_NUM 5
 #define EVENT_DIR "./event_data/"
-
-typedef struct scr_s {
-    WINDOW *event;
-    WINDOW *cmd;
-    WINDOW *status;
-} scr_t;
 
 typedef struct button_s {
     short system;
@@ -73,7 +68,6 @@ scan_t *alloc_scan(void);
 ship_t *alloc_ship(void);
 event_t *alloc_event(void);
 button_t *alloc_button(void);
-scr_t *build_scr_t(void);
 
 int game(scr_t *scr, ship_t *ship, event_t **event);
 

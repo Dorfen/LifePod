@@ -57,7 +57,7 @@ Test(alloc_tests, alloc_button_struct)
 
 Test(alloc_tests, alloc_screen_struct)
 {
-    scr_t *foo = build_scr_t();
+    scr_t *foo = new_scr();
 
     cr_assert_not(foo == NULL);
     free(foo);

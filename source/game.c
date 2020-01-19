@@ -37,6 +37,9 @@ int game(scr_t *scr, ship_t *ship, event_t **event)
 
     getmaxyx(scr->event, coord[0], coord[1]);
     while (c != OPT_QUIT) {
+        wclear(scr->event);
+        wclear(scr->cmd);
+        scr->rebox_scr(scr);
         title_win(scr);
         print_ship(scr->event, coord[0], coord[1]);
         display_ship_status(scr->status, ship);

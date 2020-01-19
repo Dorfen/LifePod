@@ -1,6 +1,6 @@
 /*
 ** PROJECT, 2019
-** lifepd
+** lifepod
 ** File description:
 ** alloc
 */
@@ -58,17 +58,4 @@ button_t *alloc_button(void)
     ret->max_mult = 1;
     ret->msg = NULL;
     return ret;
-}
-
-scr_t *build_scr_t(void)
-{
-    scr_t *screen = malloc(sizeof(scr_t));
-
-    screen->event = subwin(stdscr, 6*LINES / 8, 3 * COLS/4, 0, 0);
-    box(screen->event, ACS_VLINE, ACS_HLINE);
-    screen->cmd = subwin(stdscr, 2*LINES/8 + 1, 3*COLS/4, 6*LINES/8, 0);
-    box(screen->cmd, ACS_VLINE, ACS_HLINE);
-    screen->status = subwin(stdscr, LINES, COLS/4, 0, 3*COLS/4);
-    box(screen->status, ACS_VLINE, ACS_HLINE);
-    return(screen);
 }

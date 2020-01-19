@@ -28,7 +28,7 @@ int main(void)
         goto FREE_EXIT;
     if (init_screen() == -1)
         goto FREE_EXIT;
-    scr = build_scr_t();
+    scr = new_scr();
     if ((event = load_all_event()) == NULL)
         goto FREE_EXIT;
     if (game(scr, ship, event) != 0)
