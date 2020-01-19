@@ -63,7 +63,7 @@ run: all
 
 tests_run: all $(TEST_OBJ)
 	@echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
-	@gcc -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS) $(PFLAGS)
+	@$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS) $(PFLAGS)
 	@./unit_tests -j4 $(VERBOSE)
 
 clear:
@@ -117,7 +117,7 @@ object/%.o: tests/%.c
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
 object/%.o: source/%.c
-	@$(CC) -g3 -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
 	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
     || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
