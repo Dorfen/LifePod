@@ -40,10 +40,13 @@ event_t *parse_event(char const *buffer)
         return NULL;
     ret->nb_buttons = atoi(tab[0]);
     ret->button = malloc(sizeof(button_t *) * (ret->nb_buttons + 1));
-    if (ret->button != NULL) {
-        ret->button[ret->nb_buttons] = NULL;
-        for (; i < ret->nb_buttons; i++)
-            ret->button[i] = parse_button(tab[i + 1]);
+    if (ret->button == NULL)
+        return NULL;
+    ret->button[ret->nb_buttons] = NULL;
+    for (; i < ret->nb_buttons; i++) {
+        ret->button[i] = parse_button(tab[i + 1]);
+        if (ret->button[i] == NULL)
+            return NULL;
     }
     ret->tab = my_tabdup(tab + i + 1);
     if (ret->tab == NULL || ret->button == NULL)
@@ -87,7 +90,7 @@ event_t *read_event(const struct dirent *namelist)
 event_t **load_all_event(void)
 {
     event_t **ret = NULL;
-    int fail = 0;
+    int sucess = 0;
     struct dirent **namelist = NULL;
     int n = scandir(EVENT_DIR, &namelist, filter_filter, alphasort);
 
@@ -96,9 +99,9 @@ event_t **load_all_event(void)
     ret = malloc(sizeof(event_t *) * (n + 1));
     ret[n] = NULL;
     for (int i = 0; i < n; i++) {
-        ret[i - fail] = read_event(namelist[i]);
-        if (ret[i - fail] == NULL)
-            fail++;
+        ret[sucess] = read_event(namelist[i]);
+        if (ret[sucess] != NULL)
+            sucess++;
         free(namelist[i]);
     }
     free(namelist);
