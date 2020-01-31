@@ -70,7 +70,6 @@ ship_t *apply_effect(ship_t *ship, const button_t *button)
         default:
             break;
     }
-    flash();
     return ship;
 }
 
