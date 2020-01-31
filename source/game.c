@@ -47,7 +47,7 @@ int game(scr_t *scr, ship_t *ship, event_t **event)
         if (event_related(scr->event, scr->cmd, event[val]) != 0)
             break;
         refresh_all(scr);
-        if (effect_button(ship, event[0]) == -1)
+        if (effect_button(ship, event[val]) == -1)
             break;
         if (ship->colon < 0) {
             exit_game();

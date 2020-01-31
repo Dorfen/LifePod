@@ -28,11 +28,11 @@ int main(void)
     srand(time(NULL));
     if (ship == NULL)
         goto FREE_EXIT;
+    if ((event = load_all_event()) == NULL)
+        goto FREE_EXIT;
     if (init_screen() == -1)
         goto FREE_EXIT;
     scr = new_scr();
-    if ((event = load_all_event()) == NULL)
-        goto FREE_EXIT;
     if (game(scr, ship, event) != 0)
         goto FREE_EXIT;
     endwin();

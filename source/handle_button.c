@@ -7,20 +7,19 @@
 
 #include "lifepod.h"
 
-bool is_good_input(unsigned int nb_buttons, char input)
+bool is_good_input(const unsigned int nb_buttons, const char input)
 {
-    if (nb_buttons > 4)
-        return false;
-    switch (input) {
-        case OPT_ONE:
-        case OPT_TWO:
-        case OPT_THREE:
-        case OPT_FOUR:
-        case OPT_QUIT:
-            return true;
-        default:
-            return false;
-    }
+    if (input == OPT_ONE && nb_buttons >= 1)
+        return true;
+    if (input == OPT_TWO && nb_buttons >= 2)
+        return true;
+    if (input == OPT_THREE && nb_buttons >= 3)
+        return true;
+    if (input == OPT_FOUR && nb_buttons >= 4)
+        return true;
+    if (input == OPT_QUIT)
+        return true;
+    return false;
 }
 
 static int compute_dmg(const button_t *button)
@@ -32,7 +31,6 @@ static int compute_dmg(const button_t *button)
         fprintf(stderr, "Button is null\n");
         return -1;
     }
-    fprintf(stderr, "Damage : %i * %i\n", button->dmg, button->max_mult);
     dmg = rand() % button->dmg;
     mult = rand() % button->max_mult;
     return dmg * mult;
