@@ -1,5 +1,8 @@
 #include <string>
 
+#ifndef BUTTON_HPP_
+#define BUTTON_HPP_
+
 class Button {
     public:
         Button(short system, int dmg, int mult, std::string &msg);
@@ -15,3 +18,5 @@ class Button {
         const int mult_;
         const std::string msg_;
 };
+
+#endif //BUTTON_HPP_
