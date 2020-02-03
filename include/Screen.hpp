@@ -22,13 +22,15 @@ class Screen
         // Refresh the selected WINDOW
         void refreshW(ScreenType type);
         // Prit the title of all the WINDOWs
-        void titleW(bool r = true);
+        void titleW(const bool r = true);
         // Prit the title of the selected WINDOW
-        void titleW(ScreenType type, bool r = true);
+        void titleW(ScreenType type, const bool r = true);
         // Box all the WINDOWs
-        void boxW(bool r = true);
+        void boxW(const bool r = true);
         // Box the selected WINDOW
-        void boxW(ScreenType type, bool r = true);
+        void boxW(ScreenType type, const bool r = true);
+        // Print the ship art
+        void printShip(const bool r = true);
         // Init the ncurses screen
         static void initScreen();
 

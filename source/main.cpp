@@ -4,5 +4,6 @@ int main(void)
 {
     Screen s;
 
+    s.printShip();
     getch();
 }

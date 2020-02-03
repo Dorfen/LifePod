@@ -93,3 +93,28 @@ void Screen::initScreen()
     cbreak();
     keypad(stdscr, true);
 }
+
+void Screen::printShip(const bool r)
+{
+    int x = 0;
+    int y = 0;
+
+    getmaxyx(event_, y, x);
+    mvwprintw(event_, y - 15, x - 65, "                    `. ___");
+    mvwprintw(event_, y - 14, x - 65, "                    __,' __`.                _..----....____");
+    mvwprintw(event_, y - 13, x - 65, "        __...--.'``;.   ,.   ;``--..__     .'    ,-._    _.-'");
+    mvwprintw(event_, y - 12, x - 65, "  _..-''-------'   `'   `'   `'     O ``-''._   (,;') _,'");
+    mvwprintw(event_, y - 11, x - 65, ",'________________                          \\`-._`-','");
+    mvwprintw(event_, y - 10, x - 65, " `._              ```````````------...___   '-.._'-:");
+    mvwprintw(event_, y - 9, x - 65, "    ```--.._      ,.                     ````--...__\\-.");
+    mvwprintw(event_, y - 8, x - 65, "            `.--. `-`                       ____    |  |`");
+    mvwprintw(event_, y - 7, x - 65, "              `. `.                       ,'`````.  ;  ;`");
+    mvwprintw(event_, y - 6, x - 65, "                `._`.        __________   `.      \\'__/`");
+    mvwprintw(event_, y - 5, x - 65, "                   `-:._____/______/___/____`.     \\  `");
+    mvwprintw(event_, y - 4, x - 65, "                              |       `._    `.    \\");
+    mvwprintw(event_, y - 3, x - 65, "                               `._________`-.   `.   `.___");
+    mvwprintw(event_, y - 2, x - 65, "                                                  `------'`");
+    if (r == true)
+        refreshW(ScreenType::Event);
+}
+
