@@ -1,13 +1,12 @@
-#image: "registry.dragonalpha.fr/infra/ci/minimal-c:latest"
-image: zcorniere/minimal-c
+image: zcorniere/minimal-cpp
 stages:
   - compilation
   - test
 
 cache:
-  paths: 
+  paths:
   - object/*.o
-    
+
 test:compilation:
   stage: compilation
   script:
