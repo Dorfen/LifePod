@@ -2,6 +2,8 @@
 #include <memory>
 #include <string>
 
+#include "Ship.hpp"
+
 #ifndef _DISPLAY_HPP_
 #define _DISPLAY_HPP_
 
@@ -31,6 +33,8 @@ class Screen
         void boxW(ScreenType type, const bool r = true);
         // Print the ship art
         void printShip(const bool r = true);
+        // display Ship Status
+        void displayShipStatus(Ship &s, const bool r = true);
         // Init the ncurses screen
         static void initScreen();
 

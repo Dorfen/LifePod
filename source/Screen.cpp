@@ -84,11 +84,33 @@ void Screen::boxW(ScreenType type, bool r)
         refreshW();
 }
 
+void Screen::displayShipStatus(Ship &s, const bool r)
+{
+    mvwprintw(status_, 2, 1, "Colon :");
+    mvwprintw(status_, 3, 1, "%04i | 1000", s.getColon());
+    mvwprintw(status_, 5, 1, "Landing :");
+    mvwprintw(status_, 6, 1, "%03i | 100", s.getLanding());
+    mvwprintw(status_, 8, 1, "Building :");
+    mvwprintw(status_, 9, 1, "%03i | 100", s.getBuild());
+    mvwprintw(status_, 11, 1, "Athmosphere :");
+    mvwprintw(status_, 12, 1, "%03i | 100", s.getAtm());
+    mvwprintw(status_, 14, 1, "Gravity :");
+    mvwprintw(status_, 15, 1, "%03i | 100", s.getGrav());
+    mvwprintw(status_, 17, 1, "Temperature :");
+    mvwprintw(status_, 18, 1, "%03i | 100", s.getTemp());
+    mvwprintw(status_, 20, 1, "Water :");
+    mvwprintw(status_, 21, 1, "%03i | 100", s.getWater());
+    mvwprintw(status_, 23, 1, "Ressources :");
+    mvwprintw(status_, 24, 1, "%03i | 100", s.getRes());
+    if (r == true)
+        refreshW(ScreenType::Status);
+}
+
 void Screen::initScreen()
 {
     initscr();
-    // noecho();
-    // curs_set(false);
+    noecho();
+    curs_set(false);
     clear();
     cbreak();
     keypad(stdscr, true);
