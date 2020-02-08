@@ -33,7 +33,7 @@ CYAN	:=	\033[36m
 WHITE	:=	\033[37m
 
 CC	:=	g++
-CFLAGS  :=      -I $(HEADP)  -Wall -Wextra -Werror -lncurses
+CFLAGS  :=      -I $(HEADP) -Wall -Wextra -Werror -lncurses -std=c++17
 
 MAKEFLAGS    += --no-print-directory --slilence --silent
 

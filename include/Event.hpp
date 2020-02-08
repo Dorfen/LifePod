@@ -3,21 +3,23 @@
 #include <memory>
 #include "Button.hpp"
 
-#ifndef EVEN_HPP_
-#define EVEN_HPP_
+#ifndef EVENT_HPP_
+#define EVENT_HPP_
 
 class Event
 {
     public:
         Event();
+        Event(const std::string filename);
         ~Event();
-        std::vector<std::string> &getText();
-        std::unique_ptr<Button> &getButton(int index);
-        std::vector<std::unique_ptr<Button>> &getButtons();
+        const std::vector<std::string> &getText()const;
+        const Button &getButton(int index)const;
+        const std::vector<Button> &getButtons()const;
+        static std::vector<Event> loadEventDir(const std::string dirName);
 
     private:
         std::vector<std::string> txt_;
-        std::vector<std::unique_ptr<Button>> button_;
+        std::vector<Button> button_;
 };
 
-#endif //EVEN_HPP_
+#endif //EVENT_HPP_

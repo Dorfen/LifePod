@@ -1,8 +1,9 @@
 #include <ncurses.h>
-#include <memory>
+#include <vector>
 #include <string>
 
 #include "Ship.hpp"
+#include "Event.hpp"
 
 #ifndef _DISPLAY_HPP_
 #define _DISPLAY_HPP_
@@ -41,6 +42,8 @@ class Screen
         void printShip(const bool r = true);
         // display Ship Status
         void displayShipStatus(const Ship &s, const bool r = true);
+        // print the text of the event
+        void displayEventTxt(const std::vector<std::string> &e, const bool r = true);
         // Init the ncurses screen
         WINDOW *getWindow(const ScreenType type);
         // Print a load bar

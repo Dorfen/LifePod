@@ -178,6 +178,15 @@ void Screen::printLoadbar(const ScreenType type, const Coord coord, \
         refreshW(type);
 }
 
+void Screen::displayEventTxt(const std::vector<std::string> &e, const bool r)
+{
+    for (long unsigned int i = 1; i - 1 < e.size(); i++) {
+        mvwprintw(event_, i + 1, 2, e.at(i - 1).c_str());
+    }
+    if (r == true)
+        refreshW(ScreenType::Event);
+}
+
 Screen::Coord::Coord(const int y_, const int x_) :
     y(y_),
     x(x_)
