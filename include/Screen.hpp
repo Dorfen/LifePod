@@ -15,6 +15,12 @@ class Screen
             Cmd,
             Status,
         };
+        class Coord {
+            public:
+                Coord(const int y_, const int x_);
+                int y;
+                int x;
+        };
         // Constructor
         Screen();
         // Destructor
@@ -22,20 +28,24 @@ class Screen
         // Refresh all the WINDOWs
         void refreshW();
         // Refresh the selected WINDOW
-        void refreshW(ScreenType type);
+        void refreshW(const ScreenType type);
         // Prit the title of all the WINDOWs
         void titleW(const bool r = true);
         // Prit the title of the selected WINDOW
-        void titleW(ScreenType type, const bool r = true);
+        void titleW(const ScreenType type, const bool r = true);
         // Box all the WINDOWs
         void boxW(const bool r = true);
         // Box the selected WINDOW
-        void boxW(ScreenType type, const bool r = true);
+        void boxW(const ScreenType type, const bool r = true);
         // Print the ship art
         void printShip(const bool r = true);
         // display Ship Status
-        void displayShipStatus(Ship &s, const bool r = true);
+        void displayShipStatus(const Ship &s, const bool r = true);
         // Init the ncurses screen
+        WINDOW *getWindow(const ScreenType type);
+        // Print a load bar
+        void printLoadbar(const ScreenType type, const Coord coord, \
+                          const int value, const int max, const bool r = false);
         static void initScreen();
 
     private:

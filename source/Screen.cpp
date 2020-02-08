@@ -24,7 +24,7 @@ void Screen::refreshW()
     wrefresh(status_);
 }
 
-void Screen::refreshW(ScreenType type)
+void Screen::refreshW(const ScreenType type)
 {
     switch (type) {
     case ScreenType::Event:
@@ -42,7 +42,7 @@ void Screen::refreshW(ScreenType type)
     }
 }
 
-void Screen::titleW(bool r)
+void Screen::titleW(const bool r)
 {
     mvwprintw(event_, 0, 1, "Event");
     mvwprintw(cmd_, 0, 1, "Command");
@@ -51,7 +51,7 @@ void Screen::titleW(bool r)
         refreshW();
 }
 
-void Screen::titleW(ScreenType type, bool r)
+void Screen::titleW(const ScreenType type, const bool r)
 {
     switch (type) {
         case ScreenType::Event: mvwprintw(event_, 0, 1, "Event"); break;
@@ -63,7 +63,7 @@ void Screen::titleW(ScreenType type, bool r)
         refreshW(type);
 }
 
-void Screen::boxW(bool r)
+void Screen::boxW(const bool r)
 {
     box(event_, ACS_VLINE, ACS_HLINE);
     box(cmd_, ACS_VLINE, ACS_HLINE);
@@ -72,7 +72,7 @@ void Screen::boxW(bool r)
         refreshW();
 }
 
-void Screen::boxW(ScreenType type, bool r)
+void Screen::boxW(const ScreenType type, bool r)
 {
     switch (type) {
         case ScreenType::Event: box(event_, ACS_VLINE, ACS_HLINE); break;
@@ -84,24 +84,32 @@ void Screen::boxW(ScreenType type, bool r)
         refreshW();
 }
 
-void Screen::displayShipStatus(Ship &s, const bool r)
+void Screen::displayShipStatus(const Ship &s, const bool r)
 {
     mvwprintw(status_, 2, 1, "Colon :");
-    mvwprintw(status_, 3, 1, "%04i | 1000", s.getColon());
-    mvwprintw(status_, 5, 1, "Landing :");
-    mvwprintw(status_, 6, 1, "%03i | 100", s.getLanding());
-    mvwprintw(status_, 8, 1, "Building :");
-    mvwprintw(status_, 9, 1, "%03i | 100", s.getBuild());
-    mvwprintw(status_, 11, 1, "Athmosphere :");
-    mvwprintw(status_, 12, 1, "%03i | 100", s.getAtm());
-    mvwprintw(status_, 14, 1, "Gravity :");
-    mvwprintw(status_, 15, 1, "%03i | 100", s.getGrav());
-    mvwprintw(status_, 17, 1, "Temperature :");
-    mvwprintw(status_, 18, 1, "%03i | 100", s.getTemp());
-    mvwprintw(status_, 20, 1, "Water :");
-    mvwprintw(status_, 21, 1, "%03i | 100", s.getWater());
-    mvwprintw(status_, 23, 1, "Ressources :");
-    mvwprintw(status_, 24, 1, "%03i | 100", s.getRes());
+    printLoadbar(ScreenType::Status, Coord(3, 1), s.getColon(), 1000);
+    mvwprintw(status_, 4, 1, "%04i | 1000", s.getColon());
+    mvwprintw(status_, 6, 1, "Landing :");
+    printLoadbar(ScreenType::Status, Coord(7, 1), s.getColon(), 1000);
+    mvwprintw(status_, 8, 1, "%03i | 100", s.getLanding());
+    mvwprintw(status_, 10, 1, "Building :");
+    printLoadbar(ScreenType::Status, Coord(11, 1), s.getColon(), 1000);
+    mvwprintw(status_, 12, 1, "%03i | 100", s.getBuild());
+    mvwprintw(status_, 14, 1, "Athmosphere :");
+    printLoadbar(ScreenType::Status, Coord(15, 1), s.getColon(), 1000);
+    mvwprintw(status_, 16, 1, "%03i | 100", s.getAtm());
+    mvwprintw(status_, 18, 1, "Gravity :");
+    printLoadbar(ScreenType::Status, Coord(19, 1), s.getColon(), 1000);
+    mvwprintw(status_, 20, 1, "%03i | 100", s.getGrav());
+    mvwprintw(status_, 22, 1, "Temperature :");
+    printLoadbar(ScreenType::Status, Coord(23, 1), s.getColon(), 1000);
+    mvwprintw(status_, 24, 1, "%03i | 100", s.getTemp());
+    mvwprintw(status_, 26, 1, "Water :");
+    printLoadbar(ScreenType::Status, Coord(27, 1), s.getColon(), 1000);
+    mvwprintw(status_, 28, 1, "%03i | 100", s.getWater());
+    mvwprintw(status_, 30, 1, "Ressources :");
+    printLoadbar(ScreenType::Status, Coord(31, 1), s.getColon(), 1000);
+    mvwprintw(status_, 32, 1, "%03i | 100", s.getRes());
     if (r == true)
         refreshW(ScreenType::Status);
 }
@@ -140,3 +148,37 @@ void Screen::printShip(const bool r)
         refreshW(ScreenType::Event);
 }
 
+WINDOW *Screen::getWindow(const ScreenType type)
+{
+        switch (type) {
+            case (ScreenType::Event): return event_; break;
+            case (ScreenType::Cmd): return cmd_; break;
+            case (ScreenType::Status): return status_; break;
+            default: throw std::runtime_error("Not a valid Window"); break;
+        }
+        return (nullptr);
+}
+
+void Screen::printLoadbar(const ScreenType type, const Coord coord, \
+                          const int value, const int max, const bool r)
+{
+    WINDOW *win = getWindow(type);
+    const int bar_size = getmaxx(win) - 4;
+    const int coord_ = (value * bar_size) / max;
+    std::string bar;
+
+    bar.resize(bar_size + 1);
+    bar[bar_size] = '\0';
+    for (int i = 0; i < bar_size; i++)
+        bar[i] = '-';
+    for (int i = 0; i <= coord_ && bar[i] != '\0'; i++)
+        bar[i] = '#';
+    mvwprintw(win, coord.y, coord.x, "[%s]", bar.c_str());
+    if (r == true)
+        refreshW(type);
+}
+
+Screen::Coord::Coord(const int y_, const int x_) :
+    y(y_),
+    x(x_)
+{}
