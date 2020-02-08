@@ -12,6 +12,7 @@ LifePod
 a.out
 unit_tests
 vgcore.*
+*.d
 .todo
 
 logs/
