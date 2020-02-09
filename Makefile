@@ -2,7 +2,7 @@
 ## EPITECH PROJECT, 2018
 ## Makefile
 ## File description:
-## Makefile 4.0
+## Hu 1.0
 ##
 
 SRC_FOLDER    := source
@@ -28,31 +28,34 @@ END     :=	\033[0m
 BOLD	:=	\033[1m
 RED	:=	\033[31m
 GREEN	:=	\033[32m
-BLUE	:=	\033[34m
 CYAN	:=	\033[36m
-WHITE	:=	\033[37m
 
 CC	:=	g++
-CFLAGS  :=      -I $(HEADP) -Wall -Wextra -Werror -lncurses -std=c++17
+CFLAGS  :=      -I $(HEADP)  -Wall -Wextra -Werror -lncurses -std=c++17
 
-MAKEFLAGS    += --no-print-directory --slilence --silent
+MAKEFLAGS    += --no-print-directory --silence --silent
 
 .PHONY: re clean all tests_run
 .SILENT: re all $(OBJ) $(NAME) $(OBJ_FOLDER) clear fclean tclean clean tests
 
--include $(DEPNDENCIES)
+SAY    := $(BOLD)[$(CYAN)壺$(END)$(BOLD)]
 
 all: $(NAME)
+
+-include $(DEPNDENCIES)
 
 print:
 	echo -e $(SRC)
 
-$(NAME): $(OBJ)
+start_compile:
+	echo -e "$(SAY) Praise for the almighty $(CYAN)binary$(END)$(BOLD) !$(END)"
+	
+$(NAME): start_compile $(OBJ)
 	$(CC) -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS)
-	echo -e "$(GREEN)* * * * * BINARY $(WHITE)$(BOLD)$(NAME)$(END)$(GREEN) COMPLETED * * * * *$(END)"
+	echo -e "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
 
 tests_run: $(OBJ) $(TEST_OBJ)
-	echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
+	echo -e "$(SAY) Are you doubting my faith ?$(END)"
 	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
 	./unit_tests -j4 $(VERBOSE)
 
@@ -60,8 +63,8 @@ $(OBJ): | $(OBJ_FOLDER) $(DEPDIR)
 
 $(OBJ):$(OBJ_FOLDER)/%.o: %.cpp
 	$(CC) $(CFLAGS)  -c -o $@ $<	\
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"    \
-	|| echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
+	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)has been blessed.$(END)"    \
+	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)has been cursed.$(END)"
 	gcc -MM $< > $(DEPDIR)/$*.d $(CFLAGS)
 	sed -i -e 's|.*:|$@:|' $(DEPDIR)/$*.d
 
@@ -69,32 +72,36 @@ $(OBJ_FOLDER) $(DEPDIR):
 	mkdir -p $@
 
 clear:
-	echo -e "$(BOLD)Deleting junks files$(END)"
+	echo -e "$(SAY) Purging heretics files..."
 	rm -fv source/*~
 	rm -fv *~
 	rm -fv include/*~
-	echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+	echo -e "$(SAY) Done.$(END)\n"
 
 clean:
-	echo -e "$(BOLD)Deleting OBJ.o files"
-	rm -f $(OBJ)
-	echo -e "$(BOLD)Deleting deps files"
+	echo -e "$(SAY) ..."
+	rm -vf $(OBJ)
 	rm -f $(DEPNDENCIES)
-	echo -e "$(END)$(CYAN)* * * * * DONE * * * * *$(END)"
+	echo -e "$(SAY) What ? I am just \"rewriting\" the holy book.$(END)\n"
 
 fclean: clean
 	echo -e "$(BOLD)Deleting $(NAME)$(END)"
 	rm -f $(NAME)
-	echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+	echo -e "$(SAY) It was a false god. In such, it has been \"deleted\"$(END)\n"
 
 tclean:
-	echo -e "$(BOLD)Deleting tests$(END)"
-	rm -f $(TEST_OBJ)
-	echo -e "$(CYAN)* * * * * TESTS REMOVED * * * * *$(END)"
+	echo -e "$(BOLD)Deleting your skepticism."
+	rm -vf $(TEST_OBJ)
+	echo -e "$(CYAN)* * * * * SKEPTICISM REMOVED * * * * *$(END)\n"
 
 re:	clear fclean tclean all
 
 $(OBJ_FOLDER)/%.o: tests/%.cpp
 	@$(CC) -I $(HEADP) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
+	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)is ready.$(END)"    \
+	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)is not ready.$(END)"
+
+
+hello:
+	echo -e "$(SAY) I am Hu, a wandering believer. My praise are currently to $(NAME).$(END)"
+	echo -e "$(SAY) My big brother is named Ri. You may know him ?$(END)"
