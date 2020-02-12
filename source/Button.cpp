@@ -8,7 +8,7 @@ Button::Button(short system, int dmg, int mult, std::string &msg) :
     msg_(msg)
 {}
 
-Button::Button(std::string &str) :
+Button::Button(std::string str) :
     system_(0),
     dmg_(0),
     mult_(0),

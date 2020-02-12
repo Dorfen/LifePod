@@ -6,7 +6,7 @@
 class Button {
     public:
         Button(short system, int dmg, int mult, std::string &msg);
-        Button(std::string &str);
+        Button(std::string str);
         ~Button();
         short getSystem()const;
         int getDmg()const;
