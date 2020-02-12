@@ -1,7 +1,4 @@
 #include "Event.hpp"
-#include <fstream>
-#include <filesystem>
-#include <iostream>
 
 Event::Event() :
     txt_(),
@@ -48,6 +45,27 @@ const Button &Event::getButton(int index)const
 const std::vector<Button> &Event::getButtons()const
 {
     return button_;
+}
+
+bool Event::pressButtons(Screen &scr, Ship &ship)const
+{
+    std::string str;
+
+    for (long unsigned int i = 0; i < button_.size(); i++) {
+        scr.addToPrompt(std::string(button_.at(i).getMsg()));
+    }
+    scr.printPrompt();
+    str = scr.getPromptInput();
+    if (str == "quit")
+        throw EventErr("Quit");
+    try {
+        ship.damageSys(static_cast<Ship::System>(button_.at(std::atoi(str.c_str())).getSystem()),
+                       button_.at(std::atoi(str.c_str())).rollDmg());
+    } catch (const std::out_of_range &oor) {
+        scr.addToPrompt(std::string("Wrong Answer"));
+        return false;
+    }
+    return true;
 }
 
 std::vector<Event> Event::loadEventDir(const std::string dir_name)

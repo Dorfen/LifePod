@@ -1,12 +1,14 @@
 #include <ncurses.h>
 #include <vector>
 #include <string>
+#include <stdexcept>
+
+#ifndef _SCREEN_HPP_
+#define _SCREEN_HPP_
 
 #include "Ship.hpp"
-#include "Event.hpp"
 
-#ifndef _DISPLAY_HPP_
-#define _DISPLAY_HPP_
+class Event;
 
 class Screen
 {
@@ -53,12 +55,23 @@ class Screen
         // Print a load bar
         void printLoadbar(const ScreenType type, const Coord coord, \
                           const int value, const int max, const bool r = false);
+
+        // ask for a str in _cmd
+        std::string getPromptInput();
+        // add a line to the prompt
+        void addToPrompt(const std::string &str, bool r = false);
+        // print prompt
+        void printPrompt(bool r = true);
+
+    public:
         static void initScreen();
 
     private:
         WINDOW *event_ = nullptr;
         WINDOW *cmd_ = nullptr;
         WINDOW *status_ = nullptr;
+        long unsigned int _prompt_size = 0;
+        std::vector<std::string> _prompt_history;
 };
 
 class ScreenErr: public std::exception
@@ -71,4 +84,4 @@ class ScreenErr: public std::exception
         std::string _message;
 };
 
-#endif //_DISPLAY_HPP_
+#endif //_SCREEN_HPP_

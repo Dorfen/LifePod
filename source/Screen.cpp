@@ -4,9 +4,11 @@
 Screen::Screen()
 {
     Screen::initScreen();
-    event_ = subwin(stdscr, 6 * LINES / 8, 3 * COLS / 4, 0, 0);
-    cmd_ = subwin(stdscr, 2 * LINES / 8 + 1, 3 * COLS / 4, 6*LINES/8, 0);
-    status_ = subwin(stdscr, LINES, COLS / 4, 0, 3 * COLS/4);
+    _prompt_size = (3 * LINES / 10 ) - 3;
+    _prompt_history.reserve(_prompt_size);
+    event_ = subwin(stdscr, 7 * LINES / 10, 7 * COLS / 10, 0, 0);
+    cmd_ = subwin(stdscr, 3 * LINES / 10 + 1, 7 * COLS / 10, 7*LINES/10, 0);
+    status_ = subwin(stdscr, LINES, 3 * COLS / 10, 0, 7 * COLS/10);
     boxW(false);
     titleW(false);
     refreshW();
@@ -135,16 +137,6 @@ void Screen::displayShipStatus(const Ship &s, const bool r)
         refreshW(ScreenType::Status);
 }
 
-void Screen::initScreen()
-{
-    initscr();
-    noecho();
-    curs_set(false);
-    clear();
-    cbreak();
-    keypad(stdscr, true);
-}
-
 void Screen::printShip(const bool r)
 {
     int x = 0;
@@ -209,6 +201,52 @@ void Screen::displayEventTxt(const std::vector<std::string> &e, const bool r)
     }
     if (r == true)
         refreshW(ScreenType::Event);
+}
+
+std::string Screen::getPromptInput()
+{
+    char msg[COLS];
+
+    echo();
+    curs_set(true);
+    mvprintw(LINES - 3, 2, "> ");
+    getstr(msg);
+    noecho();
+    curs_set(false);
+    if (msg[0] != '\n')
+        addToPrompt(std::string("> ") + std::string(msg));
+    return std::string(msg);
+}
+
+void Screen::addToPrompt(const std::string &str, bool r)
+{
+    if (_prompt_history.size() >= _prompt_size)
+        _prompt_history.erase(_prompt_history.begin());
+    _prompt_history.push_back(str);
+    if (r == true)
+        printPrompt();
+}
+
+void Screen::printPrompt(bool r)
+{
+    clearW(ScreenType::Cmd, false);
+    boxW(ScreenType::Cmd, false);
+    titleW(ScreenType::Cmd, false);
+    for (long unsigned int i = 0; i < _prompt_history.size(); i++) {
+        mvwprintw(cmd_, 1 + i, 2, _prompt_history.at(i).c_str());
+    }
+    if (r == true)
+        refreshW(ScreenType::Cmd);
+}
+
+void Screen::initScreen()
+{
+    initscr();
+    noecho();
+    curs_set(false);
+    clear();
+    cbreak();
+    keypad(stdscr, true);
 }
 
 Screen::Coord::Coord(const int y_, const int x_) :

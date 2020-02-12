@@ -7,6 +7,7 @@
 int main(void)
 {
     std::vector<Event> event_list = Event::loadEventDir("./event_data/");
+    std::string cmd;
     Ship ship;
     int event_nbr = 0;
     Screen s;
@@ -15,16 +16,20 @@ int main(void)
     srand(time(NULL));
     while (ship.getColon() > 0) {
         s.clearW(Screen::Event);
-        event_nbr = rand() % event_list.size();
         s.displayShipStatus(ship, false);
         try {
             s.displayEventTxt(event_list.at(event_nbr).getText(), false);
-        } catch(const std::out_of_range &oor) {
-            std::cerr << "Error: invalid event number." << oor.what() << std::endl;
+            if (event_list.at(event_nbr).pressButtons(s, ship))
+                event_nbr = rand() % event_list.size();
+        } catch (const std::out_of_range &oor) {
+            s.addToPrompt(std::string("Error: invalid event number.") + oor.what());
             continue;
+        } catch (const EventErr &err) {
+            if (err.getMessage() == "Quit")
+                break;
+            else
+                throw;
         }
         s.refreshW();
-        if (getch() == 'q')
-            break;
     }
 }

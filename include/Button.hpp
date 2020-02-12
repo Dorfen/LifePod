@@ -12,6 +12,7 @@ class Button {
         int getDmg()const;
         int getMult()const;
         std::string getMsg()const;
+        int rollDmg()const;
 
     private:
         short system_;
@@ -24,7 +25,7 @@ class ButtonErr: public std::exception
 {
     public:
         ButtonErr(const std::string &message);
-        const std::string getMessage()const;
+        const std::string &getMessage()const;
 
     private:
         const std::string _message;

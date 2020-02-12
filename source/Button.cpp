@@ -56,3 +56,8 @@ std::string Button::getMsg()const
 {
     return msg_;
 }
+
+int Button::rollDmg()const
+{
+    return (dmg_ * (rand() % mult_ + 1));
+}
