@@ -6,7 +6,10 @@ Button::Button(short system, int dmg, int mult, std::string &msg) :
     dmg_(dmg),
     mult_(mult),
     msg_(msg)
-{}
+{
+    if (system_ > 8 || system_ < 0)
+        throw ButtonErr("Invalid System");
+}
 
 Button::Button(std::string str) :
     system_(0),
@@ -25,6 +28,8 @@ Button::Button(std::string str) :
     }
     msg_ = results[0];
     system_ = std::atoi(results[1].c_str());
+    if (system_ > 8 || system_ < 0)
+        throw ButtonErr("Invalid System");
     dmg_ = std::atoi(results[2].c_str());
     mult_ = std::atoi(str.c_str());
 }

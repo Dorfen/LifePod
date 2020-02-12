@@ -20,4 +20,14 @@ class Button {
         std::string msg_;
 };
 
+class ButtonErr: public std::exception
+{
+    public:
+        ButtonErr(const std::string &message);
+        const std::string getMessage()const;
+
+    private:
+        const std::string _message;
+};
+
 #endif //BUTTON_HPP_

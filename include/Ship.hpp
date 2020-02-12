@@ -45,7 +45,7 @@ class ShipErr: public std::exception
         const std::string getMessage()const;
 
     private:
-        std::string _message;
+        const std::string _message;
 };
 
 #endif //_SHIP_HPP_
