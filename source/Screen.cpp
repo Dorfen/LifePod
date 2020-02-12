@@ -72,7 +72,7 @@ void Screen::boxW(const bool r)
         refreshW();
 }
 
-void Screen::boxW(const ScreenType type, bool r)
+void Screen::boxW(const ScreenType type, const bool r)
 {
     switch (type) {
         case ScreenType::Event: box(event_, ACS_VLINE, ACS_HLINE); break;
@@ -81,7 +81,28 @@ void Screen::boxW(const ScreenType type, bool r)
         default: throw ScreenErr("Not a valid window"); break;
     }
     if (r == true)
+        refreshW(type);
+}
+
+void Screen::clearW(const bool r)
+{
+    wclear(event_);
+    wclear(cmd_);
+    wclear(status_);
+    if (r == true)
         refreshW();
+}
+
+void Screen::clearW(const ScreenType type, const bool r)
+{
+    switch (type) {
+        case ScreenType::Event: wclear(event_); break;
+        case ScreenType::Cmd: wclear(cmd_); break;
+        case ScreenType::Status: wclear(status_); break;
+        default: throw ScreenErr("Not a valid window"); break;
+    }
+    if (r == true)
+        refreshW(type);
 }
 
 void Screen::displayShipStatus(const Ship &s, const bool r)
@@ -180,6 +201,9 @@ void Screen::printLoadbar(const ScreenType type, const Coord coord, \
 
 void Screen::displayEventTxt(const std::vector<std::string> &e, const bool r)
 {
+    clearW(ScreenType::Event, false);
+    boxW(ScreenType::Event, false);
+    titleW(ScreenType::Event, false);
     for (long unsigned int i = 1; i - 1 < e.size(); i++) {
         mvwprintw(event_, i + 1, 2, e.at(i - 1).c_str());
     }

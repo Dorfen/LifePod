@@ -38,6 +38,10 @@ class Screen
         void boxW(const bool r = true);
         // Box the selected WINDOW
         void boxW(const ScreenType type, const bool r = true);
+        // clear all the WINDOWs
+        void clearW(const bool r = true);
+        // clear the selected WINDOW
+        void clearW(const ScreenType type, const bool r = true);
         // Print the ship art
         void printShip(const bool r = true);
         // display Ship Status
