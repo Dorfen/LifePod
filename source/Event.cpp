@@ -73,6 +73,7 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
         scr.addToPrompt("Not a valid Command", false);
         return false;
     }
+    scr.addToPrompt("");
     return true;
 }
 
