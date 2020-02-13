@@ -15,10 +15,9 @@ int main(void)
     s.printShip(false);
     srand(time(NULL));
     while (ship.getColon() > 0) {
-        s.clearW(Screen::Event);
-        s.displayShipStatus(ship, false);
+        s.displayShipStatus(ship, true);
         try {
-            s.displayEventTxt(event_list.at(event_nbr).getText(), false);
+            s.displayEventTxt(event_list.at(event_nbr).getText(), true);
             if (event_list.at(event_nbr).pressButtons(s, ship))
                 event_nbr = rand() % event_list.size();
         } catch (const std::out_of_range &oor) {
@@ -30,6 +29,5 @@ int main(void)
             else
                 throw;
         }
-        s.refreshW();
     }
 }

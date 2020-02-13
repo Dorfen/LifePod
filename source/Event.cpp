@@ -49,20 +49,28 @@ const std::vector<Button> &Event::getButtons()const
 
 bool Event::pressButtons(Screen &scr, Ship &ship)const
 {
-    std::string str;
+    char c = '\0';
 
-    for (long unsigned int i = 0; i < button_.size(); i++) {
-        scr.addToPrompt(std::string(button_.at(i).getMsg()));
-    }
+    scr.addToPrompt("Choices :");
+    for (long unsigned int i = 0; i < button_.size(); i++)
+        scr.addToPrompt(std::to_string(i + 1) + " : " + button_.at(i).getMsg());
     scr.printPrompt();
-    str = scr.getPromptInput();
-    if (str == "quit")
+    c = getch();
+    if (c == 'q')
         throw EventErr("Quit");
     try {
-        ship.damageSys(static_cast<Ship::System>(button_.at(std::atoi(str.c_str())).getSystem()),
-                       button_.at(std::atoi(str.c_str())).rollDmg());
+        if (c < '0' || c > '9')
+            throw std::invalid_argument("Not a number");
+        ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()),
+                       button_.at(c - 48 - 1).rollDmg());
     } catch (const std::out_of_range &oor) {
-        scr.addToPrompt(std::string("Wrong Answer"));
+        scr.addToPrompt("Not a valid choice.", false);
+        return false;
+    } catch (const ShipErr &ser) {
+        scr.addToPrompt(ser.getMessage(), false);
+        return false;
+    } catch (const std::invalid_argument &ia) {
+        scr.addToPrompt("Not a valid Command", false);
         return false;
     }
     return true;

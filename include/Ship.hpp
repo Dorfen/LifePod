@@ -9,14 +9,14 @@ class Ship
         Ship();
         ~Ship();
         enum System {
-            Colon,
-            Atm,
-            Grav,
-            Temp,
-            Water,
-            Res,
-            Landing,
-            Build,
+            Colon = 1,
+            Atm = 2,
+            Grav = 3,
+            Temp = 4,
+            Water = 5,
+            Res = 6,
+            Landing = 7,
+            Build = 8,
         };
         void damageSys(System value, int damage);
         short getColon()const;
