@@ -50,19 +50,25 @@ const std::vector<Button> &Event::getButtons()const
 bool Event::pressButtons(Screen &scr, Ship &ship)const
 {
     char c = '\0';
+    std::string str;
+    int dmg = 0;
 
-    scr.addToPrompt("Choices :");
-    for (long unsigned int i = 0; i < button_.size(); i++)
-        scr.addToPrompt(std::to_string(i + 1) + " : " + button_.at(i).getMsg());
-    scr.printPrompt();
+    scr.addToPrompt("--------------------");
+    scr.addToPrompt(printButtons(scr));
+    scr.addToPrompt("", true);
     c = getch();
     if (c == 'q')
         throw EventErr("Quit");
     try {
         if (c < '0' || c > '9')
             throw std::invalid_argument("Not a number");
-        ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()),
-                       button_.at(c - 48 - 1).rollDmg());
+        dmg = button_.at(c - 48 - 1).rollDmg();
+        ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()), dmg);
+        str += c;
+        str += " take ";
+        str += std::to_string(dmg);
+        str += " damges";
+        scr.addToPrompt(str);
     } catch (const std::out_of_range &oor) {
         scr.addToPrompt("Not a valid choice.", false);
         return false;
@@ -73,8 +79,21 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
         scr.addToPrompt("Not a valid Command", false);
         return false;
     }
-    scr.addToPrompt("");
+    scr.addToPrompt("", true);
     return true;
+}
+
+std::string Event::printButtons(Screen &scr)const
+{
+    std::string str(" ");
+    int coord[2] = {-1, -1};
+
+    getmaxyx(scr.getWindow(Screen::Cmd), coord[0], coord[1]);
+    for (long unsigned int i = 0; i < button_.size(); i++) {
+        str += button_.at(i).getMsg();
+        str += "    ";
+    }
+    return str;
 }
 
 std::vector<Event> Event::loadEventDir(const std::string dir_name)

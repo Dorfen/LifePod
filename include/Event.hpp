@@ -27,6 +27,7 @@ class Event
         static std::vector<Event> loadEventDir(const std::string dirName);
 
     private:
+        std::string printButtons(Screen &scr)const;
         std::vector<std::string> txt_;
         std::vector<Button> button_;
 };
