@@ -2,136 +2,106 @@
 ## EPITECH PROJECT, 2018
 ## Makefile
 ## File description:
-## Makefile 3.3
+## Hu 1.0
 ##
 
-SRC	=	$(wildcard $(addprefix source/, *).c)
-NOM	=	$(basename $(notdir $(SRC)))
-OBJ	=	$(addprefix object/, $(addsuffix .o, $(NOM)))
-OBJM	=	$(filter-out object/main.o, $(OBJ))
+SRC_FOLDER    := source
+OBJ_FOLDER    := object
 
-TEST_SRC	=	$(wildcard $(addprefix tests/, *).c)
-TEST_NAME	=	$(basename $(notdir $(TEST_SRC)))
-TEST_OBJ	=	$(addprefix object/, $(addsuffix .o, $(TEST_NAME)))
-TFLAGS		=	--coverage -lcriterion
+VPATH   :=    $(SRC_FOLDER)
+SRC	:=	$(notdir $(shell ls $(addsuffix /*.cpp, $(SRC_FOLDER))))
+OBJ	:=	$(addprefix $(OBJ_FOLDER)/,$(SRC:.cpp=.o))
+OBJM	:=	$(filter-out $(OBJ_FOLDER)/main.o, $(OBJ))
 
-LNAME	=	libmy.a
-LIB		=	my
-LIB-PATH	=	./lib/my
-SRC-LIB	=	$(wildcard $(addprefix $(LIB-PATH)/, *).c)
-NOM-LIB	=	$(basename $(notdir $(SRC-LIB)))
-OBJ-LIB	=	$(addprefix object/, $(addsuffix .o, $(NOM-LIB)))
-LFLAGS	=	-L $(LIB-PATH) -l$(LIB)
+TEST_SRC	:=	$(wildcard $(addprefix tests/, *).cpp)
+TEST_NAME	:=	$(basename $(notdir $(TEST_SRC)))
+TEST_OBJ	:=	$(addprefix object/, $(addsuffix .o, $(TEST_NAME)))
+TFLAGS		:=	-lcriterion
 
-CNAME   =   libmycurs.a
-CURS    =   mycurs
-CURS-PATH   =   ./lib/mycurs
-SRC-CURS    =   $(wildcard $(addprefix $(CURS-PATH)/, *).c)
-NOM-CURS    =   $(basename $(notdir $(SRC-CURS)))
-OBJ-CURS    =   $(addprefix object/, $(addsuffix .o, $(NOM-CURS)))
-CFLAGS  =   -L $(CURS-PATH) -l$(CURS) -lncurses
+HEADP	:=	./include/
+NAME	:=	LifePod
 
-PNAME    =    libparser.a
-PLIB    =    parser
-P-PATH    =    ./lib/parser
-P-SRC     =    $(wildcard $(addprefix $(P-PATH)/, *).c)
-P-NAME     =    $(basename $(notdir $(P-SRC)))
-P-OBJ     =    $(addprefix object/, $(addsuffix .o, $(P-NAME)))
-PFLAGS    =    -L $(P-PATH) -l$(PLIB)
+DEPDIR    :=    $(HEADP)deps/
+DEPNDENCIES    :=    $(addprefix $(DEPDIR), $(SRC:.cpp=.d))
 
-HEADP	=	./include/
-NAME	=	LifePod
+END     :=	\033[0m
+BOLD	:=	\033[1m
+RED	:=	\033[31m
+GREEN	:=	\033[32m
+CYAN	:=	\033[36m
 
-END     =	\033[0m
-BOLD	=	\033[1m
-RED	=	\033[31m
-GREEN	=	\033[32m
-BLUE	=	\033[34m
-CYAN	=	\033[36m
-WHITE	=	\033[37m
+CC	:=	g++
+CFLAGS  :=      -I $(HEADP)  -Wall -Wextra -lncurses -std=c++17 -g3
 
-CC	=	gcc
+MAKEFLAGS    += --no-print-directory --silence --silent
 
-.PHONY: re clean lib curs my tests_run
+.PHONY: re clean all tests_run
+.SILENT: re all $(OBJ) $(NAME) $(OBJ_FOLDER) clear fclean tclean clean tests
 
-all: lib $(OBJ)
-	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS) $(CFLAGS) $(PFLAGS)
-	@echo -e "$(GREEN)* * * * * BINARY $(WHITE)$(BOLD)$(NAME)$(END)$(GREEN) COMPLETED * * * * *$(END)"
+SAY    := $(BOLD)[$(CYAN)壺$(END)$(BOLD)]
 
-run: all
-	@./$(NAME)
+all: $(NAME)
 
-tests_run: all $(TEST_OBJ)
-	@echo -e "$(GREEN)* * * * * STARTING TEST RUN * * * * *$(END)"
-	@$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(LFLAGS) $(CFLAGS) $(PFLAGS)
-	@./unit_tests -j4 $(VERBOSE)
+-include $(DEPNDENCIES)
+
+print:
+	echo -e $(SRC)
+
+start_compile:
+	echo -e "$(SAY) Praise for the almighty $(CYAN)binary$(END)$(BOLD) !$(END)"
+	
+$(NAME): start_compile $(OBJ)
+	$(CC) -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS)
+	echo -e "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
+
+tests_run: $(OBJ) $(TEST_OBJ)
+	echo -e "$(SAY) Are you doubting my faith ?$(END)"
+	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
+	./unit_tests -j4 $(VERBOSE)
+
+$(OBJ): | $(OBJ_FOLDER) $(DEPDIR)
+
+$(OBJ):$(OBJ_FOLDER)/%.o: %.cpp
+	$(CC) $(CFLAGS)  -c -o $@ $<	\
+	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)has been blessed.$(END)"    \
+	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)has been cursed.$(END)"
+	gcc -MM $< > $(DEPDIR)/$*.d $(CFLAGS)
+	sed -i -e 's|.*:|$@:|' $(DEPDIR)/$*.d
+
+$(OBJ_FOLDER) $(DEPDIR):
+	mkdir -p $@
 
 clear:
-	@echo -e "$(BOLD)Deleting junks files$(END)"
-	@rm -fv lib/my/*~
-	@rm -fv source/*~
-	@rm -fv *~
-	@rm -fv include/*~
-	@rm -fv vgcore.*
-	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+	echo -e "$(SAY) Purging heretics files..."
+	rm -fv source/*~
+	rm -fv *~
+	rm -fv include/*~
+	echo -e "$(SAY) Done.$(END)\n"
 
 clean:
-	@echo -e "$(BOLD)Deleting OBJ.o files"
-	@rm -f $(OBJ)
-	@echo -e "$(END)$(CYAN)* * * * * DONE * * * * *$(END)"
-
-lib: my curs parser
-
-my: $(OBJ-LIB)
-	@ar rc $(addprefix $(LIB-PATH)/, $(LNAME)) $(OBJ-LIB)
-	@echo -e "$(GREEN)* * * * * LIBRARY $(WHITE)$(BOLD)$(LIB)$(END)$(GREEN) COMPLETED * * * * *$(END)"
-
-curs: $(OBJ-CURS)
-	@ar rc $(addprefix $(CURS-PATH)/, $(CNAME)) $(OBJ-CURS)
-	@echo -e "$(GREEN)* * * * * LIBRARY $(WHITE)$(BOLD)$(CURS)$(END)$(GREEN) COMPLETED * * * * *$(END)"
-
-parser: $(P-OBJ)
-	@ar rc $(addprefix $(P-PATH)/, $(PNAME)) $(P-OBJ)
-	@echo -e "$(GREEN)* * * * * LIBRARY $(WHITE)$(BOLD)$(PLIB)$(END)$(GREEN) COMPLETED * * * * *$(END)"
-
-tclean:
-	@echo -e "$(BOLD)Deleting tests$(END)"
-	@rm -f $(TEST_OBJ)
-	@echo -e "$(CYAN)* * * * * TESTS REMOVED * * * * *$(END)"
-
-lclean:
-	@echo -e "$(BOLD)Deleting $(LNAME)$(END)"
-	@rm -f $(OBJ-LIB) $(OBJ-CURS) $(P-OBJ) $(LNAME) $(CNAME) $(PNAME)
-	@echo -e "$(CYAN)* * * * * LIBRARIES REMOVED * * * * *$(END)"
+	echo -e "$(SAY) ..."
+	rm -vf $(OBJ)
+	rm -f $(DEPNDENCIES)
+	echo -e "$(SAY) What ? I am just \"rewriting\" the holy book.$(END)\n"
 
 fclean: clean
-	@echo -e "$(BOLD)Deleting $(NAME)$(END)"
-	@rm -f $(NAME)
-	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+	echo -e "$(BOLD)Deleting $(NAME)$(END)"
+	rm -f $(NAME)
+	echo -e "$(SAY) It was a false god. In such, it has been \"deleted\"$(END)\n"
 
-re:	clear fclean lclean tclean lib all
+tclean:
+	echo -e "$(BOLD)Deleting your skepticism."
+	rm -vf $(TEST_OBJ)
+	echo -e "$(CYAN)* * * * * SKEPTICISM REMOVED * * * * *$(END)\n"
 
-object/%.o: tests/%.c
-	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $< \
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
+re:	clear fclean tclean all
 
-object/%.o: source/%.c
-	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
+$(OBJ_FOLDER)/%.o: tests/%.cpp
+	@$(CC) -I $(HEADP) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
+	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)is ready.$(END)"    \
+	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)is not ready.$(END)"
 
-object/%.o: $(LIB-PATH)/%.c
-	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-    || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
 
-object/%.o: $(CURS-PATH)/%.c
-	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-	|| echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
-
-object/%.o: $(P-PATH)/%.c
-	@$(CC) -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-	&& echo -e "[ $(GREEN)OK$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"      \
-  || echo -e "[ $(RED)KO$(END) ] Generate$(BOLD)$(WHITE)" $< "$(END)"
+hello:
+	echo -e "$(SAY) I am Hu, a wandering believer. My praise are currently to $(NAME).$(END)"
+	echo -e "$(SAY) My big brother is named Ri. You may know him ?$(END)"
