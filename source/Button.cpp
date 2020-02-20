@@ -1,5 +1,6 @@
 #include "Button.hpp"
 #include <vector>
+#include <iostream>
 
 Button::Button(short system, int dmg, int mult, std::string &msg) :
     system_(system),

@@ -10,11 +10,12 @@ int main(void)
     std::string cmd;
     Ship ship;
     int event_nbr = 0;
-    Screen s;
 
-    s.printShip(false);
     srand(time(NULL));
     while (ship.getColon() > 0) {
+        Screen s;
+
+        s.printShip(false);
         s.displayShipStatus(ship, true);
         try {
             s.displayEventTxt(event_list.at(event_nbr).getText(), true);
@@ -30,4 +31,6 @@ int main(void)
                 throw;
         }
     }
+    if (ship.getColon() <= 0)
+        std::cout << "You lose, all your colons dies" << std::endl;
 }

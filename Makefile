@@ -31,7 +31,7 @@ GREEN	:=	\033[32m
 CYAN	:=	\033[36m
 
 CC	:=	g++
-CFLAGS  :=      -I $(HEADP)  -Wall -Wextra -lncurses -std=c++17
+CFLAGS  :=      -I $(HEADP)  -Wall -Wextra -lncurses -std=c++17 -g3
 
 MAKEFLAGS    += --no-print-directory --silence --silent
 
