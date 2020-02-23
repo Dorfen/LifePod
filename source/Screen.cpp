@@ -184,7 +184,7 @@ void Screen::printLoadbar(const ScreenType type, const Coord coord, \
     bar[bar_size] = '\0';
     for (int i = 0; i < bar_size; i++)
         bar[i] = '-';
-    for (int i = 0; i <= coord_ && bar[i] != '\0'; i++)
+    for (int i = 0; i < coord_ && bar[i] != '\0'; i++)
         bar[i] = '#';
     mvwprintw(win, coord.y, coord.x, "[%s]", bar.c_str());
     if (r == true)

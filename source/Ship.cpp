@@ -19,6 +19,22 @@ void Ship::damageSys(System value, int damage)
         case System::Build: build_ -= damage; break;
         default: throw ShipErr("Not a valid system"); break;
     }
+    if (colon_ < 0)
+        colon_ = 0;
+    if (atm_ < 0)
+        atm_ = 0;
+    if (grav_ < 0)
+        grav_ = 0;
+    if (temp_ < 0)
+        temp_ = 0;
+    if (water_ < 0)
+        water_ = 0;
+    if (res_ < 0)
+        res_ = 0;
+    if (landing_ < 0)
+        landing_ = 0;
+    if (build_ < 0)
+        build_ = 0;
 }
 
 short Ship::getColon()const
