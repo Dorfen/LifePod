@@ -15,8 +15,7 @@ int main(void)
     while (ship.getColon() > 0) {
         Screen s;
 
-        s.printShip(false);
-        s.displayShipStatus(ship, true);
+        s.displayShipStatus(ship, false);
         try {
             s.displayEventTxt(event_list.at(event_nbr).getText(), true);
             if (event_list.at(event_nbr).pressButtons(s, ship))

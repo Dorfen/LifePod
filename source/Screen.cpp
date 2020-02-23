@@ -143,20 +143,20 @@ void Screen::printShip(const bool r)
     int y = 0;
 
     getmaxyx(event_, y, x);
-    mvwprintw(event_, y - 15, x - 65, "                    `. ___");
-    mvwprintw(event_, y - 14, x - 65, "                    __,' __`.                _..----....____");
-    mvwprintw(event_, y - 13, x - 65, "        __...--.'``;.   ,.   ;``--..__     .'    ,-._    _.-'");
-    mvwprintw(event_, y - 12, x - 65, "  _..-''-------'   `'   `'   `'     O ``-''._   (,;') _,'");
-    mvwprintw(event_, y - 11, x - 65, ",'________________                          \\`-._`-','");
-    mvwprintw(event_, y - 10, x - 65, " `._              ```````````------...___   '-.._'-:");
-    mvwprintw(event_, y - 9, x - 65, "    ```--.._      ,.                     ````--...__\\-.");
-    mvwprintw(event_, y - 8, x - 65, "            `.--. `-`                       ____    |  |`");
-    mvwprintw(event_, y - 7, x - 65, "              `. `.                       ,'`````.  ;  ;`");
-    mvwprintw(event_, y - 6, x - 65, "                `._`.        __________   `.      \\'__/`");
-    mvwprintw(event_, y - 5, x - 65, "                   `-:._____/______/___/____`.     \\  `");
-    mvwprintw(event_, y - 4, x - 65, "                              |       `._    `.    \\");
-    mvwprintw(event_, y - 3, x - 65, "                               `._________`-.   `.   `.___");
-    mvwprintw(event_, y - 2, x - 65, "                                                  `------'`");
+    mvwprintw(event_, y - 15, x - 63, "                    `. ___");
+    mvwprintw(event_, y - 14, x - 63, "                    __,' __`.                _..----....____");
+    mvwprintw(event_, y - 13, x - 63, "        __...--.'``;.   ,.   ;``--..__     .'    ,-._    _.-'");
+    mvwprintw(event_, y - 12, x - 63, "  _..-''-------'   `'   `'   `'     O ``-''._   (,;') _,'");
+    mvwprintw(event_, y - 11, x - 63, ",'________________                          \\`-._`-','");
+    mvwprintw(event_, y - 10, x - 63, " `._              ```````````------...___   '-.._'-:");
+    mvwprintw(event_, y - 9, x - 63, "    ```--.._      ,.                     ````--...__\\-.");
+    mvwprintw(event_, y - 8, x - 63, "            `.--. `-`                       ____    |  |`");
+    mvwprintw(event_, y - 7, x - 63, "              `. `.                       ,'`````.  ;  ;`");
+    mvwprintw(event_, y - 6, x - 63, "                `._`.        __________   `.      \\'__/`");
+    mvwprintw(event_, y - 5, x - 63, "                   `-:._____/______/___/____`.     \\  `");
+    mvwprintw(event_, y - 4, x - 63, "                              |       `._    `.    \\");
+    mvwprintw(event_, y - 3, x - 63, "                               `._________`-.   `.   `.___");
+    mvwprintw(event_, y - 2, x - 63, "                                                  `------'`");
     if (r == true)
         refreshW(ScreenType::Event);
 }
@@ -196,6 +196,7 @@ void Screen::displayEventTxt(const std::vector<std::string> &e, const bool r)
     clearW(ScreenType::Event, false);
     boxW(ScreenType::Event, false);
     titleW(ScreenType::Event, false);
+    printShip(false);
     for (long unsigned int i = 1; i - 1 < e.size(); i++) {
         mvwprintw(event_, i + 1, 2, e.at(i - 1).c_str());
     }
