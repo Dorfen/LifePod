@@ -3,6 +3,8 @@
 #ifndef BUTTON_HPP_
 #define BUTTON_HPP_
 
+#include "LifepodErr.hpp"
+
 class Button {
     public:
         Button(short system, int dmg, int mult, std::string &msg);
@@ -21,14 +23,10 @@ class Button {
         std::string msg_;
 };
 
-class ButtonErr: public std::exception
+class ButtonErr: public LifepodErr
 {
     public:
-        ButtonErr(const std::string &message);
-        const std::string &getMessage()const;
-
-    private:
-        const std::string _message;
+        ButtonErr(const std::string &message) : LifepodErr(message) {};
 };
 
 #endif //BUTTON_HPP_

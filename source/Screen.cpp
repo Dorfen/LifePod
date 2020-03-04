@@ -219,7 +219,7 @@ std::string Screen::getPromptInput()
     return std::string(msg);
 }
 
-void Screen::addToPrompt(const std::string &str, bool r)
+void Screen::addToPrompt(const std::string &str, const bool r)
 {
     if (_prompt_history.size() >= _prompt_size)
         _prompt_history.erase(_prompt_history.begin());
@@ -228,7 +228,7 @@ void Screen::addToPrompt(const std::string &str, bool r)
         printPrompt();
 }
 
-void Screen::printPrompt(bool r)
+void Screen::printPrompt(const bool r)
 {
     clearW(ScreenType::Cmd, false);
     boxW(ScreenType::Cmd, false);

@@ -3,6 +3,8 @@
 #ifndef _SHIP_HPP_
 #define _SHIP_HPP_
 
+#include "LifepodErr.hpp"
+
 class Ship
 {
     public:
@@ -39,14 +41,10 @@ class Ship
         short build_ = 100;
 };
 
-class ShipErr: public std::exception
+class ShipErr: public LifepodErr
 {
     public:
-        ShipErr(const std::string &message);
-        const std::string getMessage()const;
-
-    private:
-        const std::string _message;
+        ShipErr(const std::string &message) : LifepodErr(message) {};
 };
 
 #endif //_SHIP_HPP_

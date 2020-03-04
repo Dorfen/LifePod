@@ -8,6 +8,7 @@
 #define _SCREEN_HPP_
 
 #include "Ship.hpp"
+#include "LifepodErr.hpp"
 
 class Screen
 {
@@ -52,9 +53,9 @@ class Screen
         // ask for a str in _cmd
         std::string getPromptInput();
         // add a line to the prompt
-        void addToPrompt(const std::string &str, bool r = false);
+        void addToPrompt(const std::string &str, const bool r = false);
         // print prompt
-        void printPrompt(bool r = true);
+        void printPrompt(const bool r = true);
 
     public:
         static void initScreen();
@@ -67,14 +68,10 @@ class Screen
         std::vector<std::string> _prompt_history;
 };
 
-class ScreenErr: public std::exception
+class ScreenErr: public LifepodErr
 {
     public:
-        ScreenErr(const std::string &message);
-        const std::string getMessage()const;
-
-    private:
-        std::string _message;
+        ScreenErr(const std::string &msg) : LifepodErr(msg) {}
 };
 
 #endif //_SCREEN_HPP_

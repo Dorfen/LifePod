@@ -11,6 +11,7 @@
 #include "Ship.hpp"
 #include "Screen.hpp"
 #include "Button.hpp"
+#include "LifepodErr.hpp"
 
 class Event
 {
@@ -32,14 +33,10 @@ class Event
         std::vector<Button> button_;
 };
 
-class EventErr
+class EventErr: public LifepodErr
 {
     public:
-        EventErr(const std::string &message);
-        const std::string &getMessage()const;
-
-    private:
-        const std::string _message;
+        EventErr(const std::string &message) : LifepodErr(message) {};
 };
 
 #endif //EVENT_HPP_
