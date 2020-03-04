@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <utility>
 #include <vector>
 #include <string>
 #include <stdexcept>
@@ -8,8 +9,6 @@
 
 #include "Ship.hpp"
 
-class Event;
-
 class Screen
 {
     public:
@@ -17,12 +16,6 @@ class Screen
             Event,
             Cmd,
             Status,
-        };
-        class Coord {
-            public:
-                Coord(const int y_, const int x_);
-                int y;
-                int x;
         };
         // Constructor
         Screen();
@@ -53,7 +46,7 @@ class Screen
         // Init the ncurses screen
         WINDOW *getWindow(const ScreenType type);
         // Print a load bar
-        void printLoadbar(const ScreenType type, const Coord coord, \
+        void printLoadbar(const ScreenType type, const std::pair<int, int> coord, \
                           const int value, const int max, const bool r = false);
 
         // ask for a str in _cmd
