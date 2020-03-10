@@ -37,42 +37,42 @@ void Ship::damageSys(System value, int damage)
         build_ = 0;
 }
 
-short Ship::getColon()const
+int Ship::getColon()const
 {
     return colon_;
 }
 
-short Ship::getAtm()const
+int Ship::getAtm()const
 {
     return atm_;
 }
 
-short Ship::getGrav()const
+int Ship::getGrav()const
 {
     return grav_;
 }
 
-short Ship::getTemp()const
+int Ship::getTemp()const
 {
     return temp_;
 }
 
-short Ship::getWater()const
+int Ship::getWater()const
 {
     return water_;
 }
 
-short Ship::getRes()const
+int Ship::getRes()const
 {
     return res_;
 }
 
-short Ship::getLanding()const
+int Ship::getLanding()const
 {
     return landing_;
 }
 
-short Ship::getBuild()const
+int Ship::getBuild()const
 {
     return build_;
 }

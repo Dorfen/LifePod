@@ -21,24 +21,24 @@ class Ship
             Build = 8,
         };
         void damageSys(System value, int damage);
-        short getColon()const;
-        short getAtm()const;
-        short getGrav()const;
-        short getTemp()const;
-        short getWater()const;
-        short getRes()const;
-        short getLanding()const;
-        short getBuild()const;
+        int getColon()const;
+        int getAtm()const;
+        int getGrav()const;
+        int getTemp()const;
+        int getWater()const;
+        int getRes()const;
+        int getLanding()const;
+        int getBuild()const;
 
     private:
-        short colon_ = 1000;
-        short atm_ = 100;
-        short grav_ = 100;
-        short temp_ = 100;
-        short water_ = 100;
-        short res_ = 100;
-        short landing_ = 100;
-        short build_ = 100;
+        int colon_ = 1000;
+        int atm_ = 100;
+        int grav_ = 100;
+        int temp_ = 100;
+        int water_ = 100;
+        int res_ = 100;
+        int landing_ = 100;
+        int build_ = 100;
 };
 
 class ShipErr: public LifepodErr
