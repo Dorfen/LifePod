@@ -8,6 +8,8 @@
 #define _SCREEN_HPP_
 
 #include "Ship.hpp"
+#include "Window.hpp"
+#include "Prompt.hpp"
 #include "LifepodErr.hpp"
 
 class Screen
@@ -45,27 +47,19 @@ class Screen
         // print the text of the event
         void displayEventTxt(const std::vector<std::string> &e, const bool r = true);
         // Init the ncurses screen
-        WINDOW *getWindow(const ScreenType type);
+        Window &getWindow(const ScreenType type);
         // Print a load bar
         void printLoadbar(const ScreenType type, const std::pair<int, int> coord, \
                           const int value, const int max, const bool r = false);
 
-        // ask for a str in _cmd
-        std::string getPromptInput();
-        // add a line to the prompt
-        void addToPrompt(const std::string &str, const bool r = false);
-        // print prompt
-        void printPrompt(const bool r = true);
 
     public:
         static void initScreen();
 
-    private:
-        WINDOW *event_ = nullptr;
-        WINDOW *cmd_ = nullptr;
-        WINDOW *status_ = nullptr;
-        long unsigned int _prompt_size = 0;
-        std::vector<std::string> _prompt_history;
+    public:
+        Window event_;
+        Prompt cmd_;
+        Window status_;
 };
 
 class ScreenErr: public LifepodErr
