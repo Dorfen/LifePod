@@ -46,12 +46,9 @@ class Screen
         void displayShipStatus(const Ship &s, const bool r = true);
         // print the text of the event
         void displayEventTxt(const std::vector<std::string> &e, const bool r = true);
-        // Init the ncurses screen
-        Window &getWindow(const ScreenType type);
         // Print a load bar
-        void printLoadbar(const ScreenType type, const std::pair<int, int> coord, \
+        void printLoadbar(const std::pair<int, int> coord, \
                           const int value, const int max, const bool r = false);
-
 
     public:
         static void initScreen();

@@ -89,7 +89,7 @@ std::string Event::printButtons(Screen &scr)const
     std::string str(" ");
     int coord[2] = {-1, -1};
 
-    getmaxyx(scr.getWindow(Screen::Cmd).getWindow(), coord[0], coord[1]);
+    getmaxyx(scr.cmd_.getWindow(), coord[0], coord[1]);
     for (long unsigned int i = 0; i < button_.size(); i++) {
         str += button_.at(i).getMsg();
         str += "    ";

@@ -33,7 +33,7 @@ class Window
 
     protected:
         WinStyle _style;
-        WINDOW *_win = nullptr;
+        WINDOW *_win;
 };
 
 class WindowErr: public std::exception
