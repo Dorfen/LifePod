@@ -53,10 +53,8 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
     std::string str;
     int dmg = 0;
 
-    scr.addToPrompt("--------------------");
-    scr.addToPrompt(printButtons(scr));
-    scr.addToPrompt("", true);
-    c = getch();
+    scr.cmd_ << "Make a choice :" << printButtons(scr) << "";
+    c = wgetch(scr.cmd_.getWindow());
     if (c == 'q')
         throw EventErr("Quit");
     try {
@@ -64,22 +62,22 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
             throw std::invalid_argument("Not a number");
         dmg = button_.at(c - 48 - 1).rollDmg();
         ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()), dmg);
-        str += c;
+        str += Ship::System(c);
         str += " take ";
         str += std::to_string(dmg);
         str += " damges";
-        scr.addToPrompt(str);
+        scr.cmd_ << str;
     } catch (const std::out_of_range &oor) {
-        scr.addToPrompt("Not a valid choice.", false);
+        scr.cmd_ << "Not a valid choice.";
         return false;
     } catch (const ShipErr &ser) {
-        scr.addToPrompt(ser.getMessage(), false);
+        scr.cmd_ << ser.getMessage();
         return false;
     } catch (const std::invalid_argument &ia) {
-        scr.addToPrompt("Not a valid Command", false);
+        scr.cmd_ << "Not a valid Command";
         return false;
     }
-    scr.addToPrompt("", true);
+    scr.cmd_ << "";
     return true;
 }
 
@@ -88,7 +86,7 @@ std::string Event::printButtons(Screen &scr)const
     std::string str(" ");
     int coord[2] = {-1, -1};
 
-    getmaxyx(scr.getWindow(Screen::Cmd), coord[0], coord[1]);
+    getmaxyx(scr.cmd_.getWindow(), coord[0], coord[1]);
     for (long unsigned int i = 0; i < button_.size(); i++) {
         str += button_.at(i).getMsg();
         str += "    ";

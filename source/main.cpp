@@ -12,16 +12,17 @@ int main(void)
     int event_nbr = 0;
 
     srand(time(NULL));
+    Screen::initScreen();
+    Screen s;
     while (ship.getColon() > 0) {
-        Screen s;
-
-        s.displayShipStatus(ship, false);
         try {
-            s.displayEventTxt(event_list.at(event_nbr).getText(), true);
+            s.displayShipStatus(ship, false);
+            s.displayEventTxt(event_list.at(event_nbr).getText(), false);
+            s.refreshW();
             if (event_list.at(event_nbr).pressButtons(s, ship))
                 event_nbr = rand() % event_list.size();
         } catch (const std::out_of_range &oor) {
-            s.addToPrompt(std::string("Error: invalid event number.") + oor.what());
+            s.cmd_ << "Error: invalid event number.";
             continue;
         } catch (const EventErr &err) {
             if (err.getMessage() == "Quit")
@@ -31,5 +32,8 @@ int main(void)
         }
     }
     if (ship.getColon() <= 0)
-        std::cout << "You lose, all your colons dies" << std::endl;
+        s.cmd_ << "You lose, all your colons dies";
+    else
+        s.cmd_ << "You win";
+    wgetch(s.cmd_.getWindow());
 }
