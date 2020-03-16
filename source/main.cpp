@@ -15,9 +15,10 @@ int main(void)
     Screen::initScreen();
     Screen s;
     while (ship.getColon() > 0) {
-        s.displayShipStatus(ship, false);
         try {
-            s.displayEventTxt(event_list.at(event_nbr).getText(), true);
+            s.displayShipStatus(ship, false);
+            s.displayEventTxt(event_list.at(event_nbr).getText(), false);
+            s.refreshW();
             if (event_list.at(event_nbr).pressButtons(s, ship))
                 event_nbr = rand() % event_list.size();
         } catch (const std::out_of_range &oor) {
@@ -30,7 +31,9 @@ int main(void)
                 throw;
         }
     }
-    s.~Screen();
     if (ship.getColon() <= 0)
-        std::cout << "You lose, all your colons dies" << std::endl;
+        s.cmd_ << "You lose, all your colons dies";
+    else
+        s.cmd_ << "You win";
+    wgetch(s.cmd_.getWindow());
 }

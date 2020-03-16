@@ -6,12 +6,11 @@ Window::Window() : _win(nullptr)
 Window::Window(const WinStyle &style) :
     _style(style)
 {
-    _win = subwin(stdscr, style.y, style.x, style.off_y, style.off_x);
+    _win = newwin(style.y, style.x, style.off_y, style.off_x);
     if (style.is_box == true)
         box(false);
     if (style.is_title == true)
         title(false);
-    wrefresh(_win);
 }
 
 Window::~Window()
@@ -59,6 +58,14 @@ void Window::title(const bool r)
             this->refresh();
     } else
         throw WindowErr("No title");
+}
+
+void Window::print(const int y, const int x, const std::string &str, ...)
+{
+    va_list args;
+    va_start(args, str);
+    wmove(_win, y, x);
+    vw_printw(_win, str.c_str(), args);
 }
 
 void Window::refresh()

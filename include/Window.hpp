@@ -26,9 +26,10 @@ class Window
         void setStyle(const WinStyle style);
         WinStyle getStyle()const;
         WINDOW *getWindow();
-        void clear(const bool r = true);
-        void box(const bool r = true);
-        void title(const bool r = true);
+        void clear(const bool r = false);
+        void box(const bool r = false);
+        void title(const bool r = false);
+        void print(const int y, const int x, const std::string &str, ...);
         void refresh();
 
     protected:

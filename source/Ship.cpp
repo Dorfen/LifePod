@@ -76,3 +76,4 @@ int Ship::getBuild()const
 {
     return build_;
 }
+

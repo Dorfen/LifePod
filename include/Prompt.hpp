@@ -13,7 +13,7 @@ class Prompt: public Window
         Prompt();
         Prompt(const WinStyle &style);
         ~Prompt();
-        // ask for a str in _cmd
+        // ask for a str
         std::string getPromptInput();
         // add a line to the prompt
         void addToPrompt(const std::string &str, const bool r = false);

@@ -53,11 +53,8 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
     std::string str;
     int dmg = 0;
 
-    scr.cmd_ << "--------------------" << printButtons(scr) << "";
-    //scr.cmd_.addToPrompt("--------------------");
-    //scr.cmd_.addToPrompt(printButtons(scr));
-    //scr.cmd_.addToPrompt("", true);
-    c = getch();
+    scr.cmd_ << "Make a choice :" << printButtons(scr) << "";
+    c = wgetch(scr.cmd_.getWindow());
     if (c == 'q')
         throw EventErr("Quit");
     try {
@@ -65,7 +62,7 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
             throw std::invalid_argument("Not a number");
         dmg = button_.at(c - 48 - 1).rollDmg();
         ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()), dmg);
-        str += c;
+        str += Ship::System(c);
         str += " take ";
         str += std::to_string(dmg);
         str += " damges";

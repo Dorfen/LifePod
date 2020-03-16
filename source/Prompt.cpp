@@ -26,7 +26,7 @@ std::string Prompt::getPromptInput()
     noecho();
     curs_set(false);
     if (msg[0] != '\n')
-        addToPrompt(std::string("> ") + std::string(msg));
+        *this << "> " << msg;
     return std::string(msg);
 }
 
@@ -45,10 +45,10 @@ void Prompt::printPrompt(const bool r)
     this->box(false);
     this->title(false);
     for (long unsigned int i = 0; i < _prompt_history.size(); i++) {
-        mvwprintw(_win, 1 + i, 2, _prompt_history.at(i).c_str());
+        this->print(1 + i, 2, _prompt_history.at(i));
     }
     if (r == true)
-        refresh();
+        this->refresh();
 }
 
 Prompt &Prompt::operator<<(const std::string &str)

@@ -26,20 +26,12 @@ class Screen
         ~Screen();
         // Refresh all the WINDOWs
         void refreshW();
-        // Refresh the selected WINDOW
-        void refreshW(const ScreenType type);
         // Prit the title of all the WINDOWs
         void titleW(const bool r = true);
-        // Prit the title of the selected WINDOW
-        void titleW(const ScreenType type, const bool r = true);
         // Box all the WINDOWs
         void boxW(const bool r = true);
-        // Box the selected WINDOW
-        void boxW(const ScreenType type, const bool r = true);
         // clear all the WINDOWs
         void clearW(const bool r = true);
-        // clear the selected WINDOW
-        void clearW(const ScreenType type, const bool r = true);
         // Print the ship art
         void printShip(const bool r = true);
         // display Ship Status
