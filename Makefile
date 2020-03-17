@@ -65,7 +65,7 @@ $(OBJ):$(OBJ_FOLDER)/%.o: %.cpp
 	$(CC) $(CFLAGS)  -c -o $@ $<	\
 	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)has been blessed.$(END)"    \
 	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)has been cursed.$(END)"
-	gcc -MM -MP -MT $@ $< > $(DEPDIR)/$*.d $(CFLAGS)
+	gcc $(CFLAGS) -MM -MP -MT $@ $< > $(DEPDIR)/$*.d
 
 $(OBJ_FOLDER) $(DEPDIR):
 	mkdir -p $@
@@ -96,10 +96,10 @@ tclean:
 re:	clear fclean tclean all
 
 $(OBJ_FOLDER)/%.o: tests/%.cpp
-	@$(CC) -I $(HEADP) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
+	$(CC) -I $(HEADP) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
 	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)is ready.$(END)"    \
 	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)is not ready.$(END)"
-
+	gcc $(CFLAGS) -MM -MP -MT $@ $< > $(DEPDIR)/$*.d
 
 hello:
 	echo -e "$(SAY) I am Hu, a wandering believer. My praise are currently to $(NAME).$(END)"
