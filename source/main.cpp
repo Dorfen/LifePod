@@ -31,9 +31,11 @@ int main(void)
                 throw;
         }
     }
+    s.clearW();
     if (ship.getColon() <= 0)
-        s.cmd_ << "You lose, all your colons dies";
+        mvprintw(LINES/2, COLS/2 - 30, "You lose, all your colons dies");
     else
-        s.cmd_ << "You win";
-    wgetch(s.cmd_.getWindow());
+        mvprintw(LINES/2, COLS/2 - 7, "You win");
+    refresh();
+    getch();
 }
