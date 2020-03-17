@@ -6,7 +6,7 @@ Ship::Ship()
 Ship::~Ship()
 {}
 
-void Ship::damageSys(System value, int damage)
+void Ship::damageSys(const System value, const int damage)
 {
     switch (value) {
         case System::Colon: colon_ -= damage; break;

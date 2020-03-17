@@ -7,9 +7,8 @@
 int main(void)
 {
     std::vector<Event> event_list = Event::loadEventDir("./event_data/");
-    std::string cmd;
     Ship ship;
-    int event_nbr = 0;
+    unsigned int event_nbr = 0;
 
     srand(time(NULL));
     Screen::initScreen();
@@ -33,9 +32,9 @@ int main(void)
     }
     s.clearW();
     if (ship.getColon() <= 0)
-        mvprintw(LINES/2, COLS/2 - 30, "You lose, all your colons dies");
+        mvprintw(LINES/2, COLS/2 - 15, "You lose, all your colons dies");
     else
-        mvprintw(LINES/2, COLS/2 - 7, "You win");
+        mvprintw(LINES/2, COLS/2 - 4, "You win");
     refresh();
     getch();
 }

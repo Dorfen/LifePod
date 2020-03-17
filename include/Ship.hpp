@@ -20,7 +20,7 @@ class Ship
             Landing = 7,
             Build = 8,
         };
-        void damageSys(System value, int damage);
+        void damageSys(const System value, const int damage);
         int getColon()const;
         int getAtm()const;
         int getGrav()const;

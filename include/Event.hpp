@@ -20,7 +20,7 @@ class Event
         Event(const std::string filename);
         ~Event();
         const std::vector<std::string> &getText()const;
-        const Button &getButton(int index)const;
+        const Button &getButton(const int index)const;
         const std::vector<Button> &getButtons()const;
         bool pressButtons(Screen &scr, Ship &ship)const;
 
@@ -28,7 +28,7 @@ class Event
         static std::vector<Event> loadEventDir(const std::string dirName);
 
     private:
-        std::string printButtons(Screen &scr)const;
+        void printButtons(Screen &scr)const;
         std::vector<std::string> txt_;
         std::vector<Button> button_;
 };

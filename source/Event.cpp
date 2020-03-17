@@ -37,7 +37,7 @@ const std::vector<std::string> &Event::getText()const
     return txt_;
 }
 
-const Button &Event::getButton(int index)const
+const Button &Event::getButton(const int index)const
 {
     return button_.at(index);
 }
@@ -50,10 +50,10 @@ const std::vector<Button> &Event::getButtons()const
 bool Event::pressButtons(Screen &scr, Ship &ship)const
 {
     char c = '\0';
-    std::string str;
     int dmg = 0;
 
-    scr.cmd_ << "Make a choice :" << printButtons(scr) << "";
+    scr.cmd_ << "Make a choice :";
+    printButtons(scr);
     c = wgetch(scr.cmd_.getWindow());
     if (c == 'q')
         throw EventErr("Quit");
@@ -62,10 +62,7 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
             throw std::invalid_argument("Not a number");
         dmg = button_.at(c - 48 - 1).rollDmg();
         ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()), dmg);
-        str += Ship::System(c);
-        str += " take ";
-        str += std::to_string(dmg);
-        str += " damges";
+        std::string str(Ship::System(dmg) + " take " + std::to_string(dmg) + " damges.");
         scr.cmd_ << str;
     } catch (const std::out_of_range &oor) {
         scr.cmd_ << "Not a valid choice.";
@@ -81,17 +78,15 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
     return true;
 }
 
-std::string Event::printButtons(Screen &scr)const
+void Event::printButtons(Screen &scr)const
 {
-    std::string str(" ");
     int coord[2] = {-1, -1};
 
     getmaxyx(scr.cmd_.getWindow(), coord[0], coord[1]);
     for (long unsigned int i = 0; i < button_.size(); i++) {
-        str += button_.at(i).getMsg();
-        str += "    ";
+        std::string str(std::to_string(i + 1) + " - " + button_.at(i).getMsg());
+        scr.cmd_ << str;
     }
-    return str;
 }
 
 std::vector<Event> Event::loadEventDir(const std::string dir_name)
