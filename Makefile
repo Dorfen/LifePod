@@ -21,7 +21,7 @@ TFLAGS		:=	-lcriterion
 HEADP	:=	./include/
 NAME	:=	LifePod
 
-DEPDIR    :=    $(HEADP)deps/
+DEPDIR    :=    .deps
 DEPNDENCIES    :=    $(addprefix $(DEPDIR), $(SRC:.cpp=.d))
 
 END     :=	\033[0m
@@ -65,8 +65,7 @@ $(OBJ):$(OBJ_FOLDER)/%.o: %.cpp
 	$(CC) $(CFLAGS)  -c -o $@ $<	\
 	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)has been blessed.$(END)"    \
 	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)has been cursed.$(END)"
-	gcc -MM $< > $(DEPDIR)/$*.d $(CFLAGS)
-	sed -i -e 's|.*:|$@:|' $(DEPDIR)/$*.d
+	gcc -MM -MP -MT $@ $< > $(DEPDIR)/$*.d $(CFLAGS)
 
 $(OBJ_FOLDER) $(DEPDIR):
 	mkdir -p $@
