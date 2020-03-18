@@ -60,9 +60,13 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
     try {
         if (c < '0' || c > '9')
             throw std::invalid_argument("Not a number");
+        std::string str;
         dmg = button_.at(c - 48 - 1).rollDmg();
         ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()), dmg);
-        std::string str(Ship::System(dmg) + " take " + std::to_string(dmg) + " damges.");
+        str += c;
+        str += " take ";
+        str += std::to_string(dmg);
+        str += " damges.";
         scr.cmd_ << str;
     } catch (const std::out_of_range &oor) {
         scr.cmd_ << "Not a valid choice.";
