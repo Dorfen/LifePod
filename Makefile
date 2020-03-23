@@ -58,7 +58,7 @@ $(NAME): start_compile $(OBJ)
 tests_run: $(OBJ) $(TEST_OBJ)
 	echo -e "$(SAY) Are you doubting my faith ?$(END)"
 	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
-	./unit_tests -j4 $(VERBOSE) || `$(WRI) && ri -i tests_runf`
+	./unit_tests -j4 $(VERBOSE)
 
 $(OBJ): | $(OBJ_FOLDER) $(DEPDIR)
 
