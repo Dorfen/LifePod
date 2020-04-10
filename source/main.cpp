@@ -13,7 +13,7 @@ int main(void)
     srand(time(NULL));
     Screen::initScreen();
     Screen s;
-    while (ship.getColon() > 0) {
+    while (ship.getSystemValue(Ship::System::Colon) > 0) {
         try {
             s.displayShipStatus(ship, false);
             s.displayEventTxt(event_list.at(event_nbr).getText(), false);
@@ -31,7 +31,7 @@ int main(void)
         }
     }
     s.clearW();
-    if (ship.getColon() <= 0)
+    if (ship.getSystemValue(Ship::System::Colon) <= 0)
         mvprintw(LINES/2, COLS/2 - 15, "You lose, all your colons dies");
     else
         mvprintw(LINES/2, COLS/2 - 4, "You win");
