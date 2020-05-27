@@ -1,108 +1,123 @@
 ##
-## PROJECT, 2020
-## Makefile
+## EPITECH PROJECT, 2020
+## PSU_zappy_2019
 ## File description:
-## Hu 1.0
+## Hu 1.1
 ##
 
-SRC_FOLDER    := source
-OBJ_FOLDER    := object
+NAME := LifePod
+HEADP := ./include/
 
-LANG    :=    .cpp
-VPATH   :=    $(SRC_FOLDER)
-SRC	:=	$(notdir $(shell ls $(addsuffix /*$(LANG), $(SRC_FOLDER))))
-OBJ	:=	$(addprefix $(OBJ_FOLDER)/,$(SRC:$(LANG)=.o))
-OBJM	:=	$(filter-out $(OBJ_FOLDER)/main.o, $(OBJ))
+SRC_FOLDER := source
 
-TEST_SRC	:=	$(wildcard $(addprefix tests/, *)$(LANG))
-TEST_NAME	:=	$(basename $(notdir $(TEST_SRC)))
-TEST_OBJ	:=	$(addprefix object/, $(addsuffix .o, $(TEST_NAME)))
-TFLAGS		:=	-lcriterion
+OBJ_FOLDER := .object
+TEST_FOLDER := tests
 
-HEADP	:=	./include/
-NAME	:=	LifePod
+LANG := .cpp
+VPATH := $(SRC_FOLDER)
+SRC := $(notdir $(shell find source/  -name '*$(LANG)'))
+OBJ := $(addprefix $(OBJ_FOLDER)/,$(SRC:$(LANG)=.o))
+OBJM := $(filter-out $(OBJ_FOLDER)/main.o, $(OBJ))
 
-DEPDIR    :=    .deps
-DEPNDENCIES    :=    $(addprefix $(DEPDIR), $(SRC:$(LANG)=.d))
+VPATH += $(TEST_FOLDER)
+TEST_SRC := $(notdir $(shell find tests/ -name '*$(LANG)'))
+TEST_OBJ := $(addprefix $(OBJ_FOLDER)/, $(TEST_SRC:$(LANG)=.o))
+TFLAGS := -lcriterion
 
-END     :=	\033[0m
-BOLD	:=	\033[1m
-RED	:=	\033[31m
-GREEN	:=	\033[32m
-CYAN	:=	\033[36m
+DEP_FOLDER := .deps
+DEPS := $(addprefix $(DEP_FOLDER), $(SRC:$(LANG)=.d))
+TEST_DEPS := $(addprefix $(DEP_FOLDER), $(TEST_SRC:$(LANG)=.d))
 
-CC	:=	g++
-CFLAGS  :=      -I $(HEADP) -Wall -Wextra -Werror -lncurses -std=c++17
+CC := g++
 
-MAKEFLAGS    += --no-print-directory --silence --silent
+END := \033[0m
+BOLD := \033[1m
+RED := \033[31m
+GREEN := \033[32m
+CYAN := \033[36m
 
-.PHONY: re clean all tests_run
-.SILENT: re all $(OBJ) $(NAME) $(OBJ_FOLDER) clear fclean tclean clean tests
+CFLAGS  := -I $(HEADP) -Wall -Wextra -Werror -std=c++17 -lncurses
 
-SAY    := $(BOLD)[$(CYAN)壺$(END)$(BOLD)]:
+MAKEFLAGS += --no-print-directory --silent
+
+SAY := $(BOLD)[$(CYAN)壺$(END)$(BOLD)]:
 
 all: $(NAME)
+.PHONY: all
 
--include $(DEPNDENCIES)
-
-print:
-	echo -e $(SRC)
+-include $(DEPS) $(TEST_DEPS)
 
 start_compile:
-	echo -e "$(SAY) Praise for the almighty $(CYAN)binary$(END)$(BOLD) !$(END)"
-	
+	printf "$(SAY) Praise for the almighty $(CYAN)binary$(END)$(BOLD) !$(END)\n"
+.PHONY: start_compile
+
 $(NAME): start_compile $(OBJ)
 	$(CC) -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS)
-	echo -e "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
+	printf "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
 
 tests_run: $(OBJ) $(TEST_OBJ)
-	echo -e "$(SAY) Are you doubting my faith ?$(END)"
+	printf "$(SAY) Are you doubting my faith ?$(END)\n"
 	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
 	./unit_tests -j4 $(VERBOSE)
+.PHONY: tests_run
 
-$(OBJ): | $(OBJ_FOLDER) $(DEPDIR)
+unit_tests: $(OBJM) $(TEST_OBJ)
+	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
+.PHONY: unit_tests
+
+$(OBJ): | $(OBJ_FOLDER) $(DEP_FOLDER)
 
 $(OBJ):$(OBJ_FOLDER)/%.o: %$(LANG)
-	$(CC) $(CFLAGS)  -c -o $@ $<	\
-	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)has been blessed.$(END)"    \
-	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)has been cursed.$(END)"
-	gcc $(CFLAGS) -MM -MP -MT $@ $< > $(DEPDIR)/$*.d
-	
-$(OBJ_FOLDER) $(DEPDIR):
-	mkdir -p $@
+	$(CC) $(CFLAGS) -c -o $@ $<	\
+	&& printf "$(BOLD)$(CYAN)$< $(END)$(BOLD)has been blessed.$(END)\n"    \
+	|| printf "$(BOLD)$(RED) $< $(END)$(BOLD)has been cursed.$(END)\n"
+	$(CC) $(CFLAGS) -MM -MP -MT $@ $< > $(DEP_FOLDER)/$*.d
 
 clear:
-	echo -e "$(SAY) Purging heretics files..."
+	printf "$(SAY) Purging heretics files...\n"
 	rm -fv source/*~
 	rm -fv *~
 	rm -fv include/*~
-	echo -e "$(SAY) Done.$(END)\n"
+	printf "$(SAY) Done.$(END)\n\n"
+.PHONY: clear
 
 clean:
-	echo -e "$(SAY) ..."
+	printf "$(SAY) ...\n"
 	rm -vf $(OBJ)
-	rm -f $(DEPNDENCIES)
-	echo -e "$(SAY) What ? I am just \"rewriting\" the holy book.$(END)\n"
+	rm -f $(DEPS)
+	printf "$(SAY) What ? I am just \"rewriting\" the holy book.$(END)\n\n"
+.PHONY: clean
 
-fclean: clean
-	echo -e "$(BOLD)Deleting $(NAME)$(END)"
+fclean: tclean clean
+	printf "$(BOLD)Deleting $(NAME)$(END)\n"
 	rm -f $(NAME)
-	echo -e "$(SAY) It is a false god. In such, it has been \"deleted\"$(END)\n"
+	printf "$(SAY) It is a false god. In such, it has been \"deleted\"$(END)\n\n"
+.PHONY: fclean
 
 tclean:
-	echo -e "$(BOLD)Deleting your skepticism."
+	printf "$(BOLD)Deleting your skepticism.\n"
+	rm -f $(TEST_DEPS)
 	rm -vf $(TEST_OBJ)
 	rm -vf tests_run
-	echo -e "$(CYAN)* * * * * SKEPTICISM REMOVED * * * * *$(END)\n"
+	printf "$(CYAN)* * * * * SKEPTICISM REMOVED * * * * *$(END)\n\n"
+.PHONY: tclean
 
-re:	clear fclean tclean all
+re:
+	make clear
+	make fclean
+	make all
+.PHONY: re
 
-$(OBJ_FOLDER)/%.o: tests/%$(LANG)
-	@$(CC) -I $(HEADP) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
-	&& echo -e "$(BOLD)$(CYAN)"$< "$(END)$(BOLD)is ready.$(END)"    \
-	|| echo -e "$(BOLD)$(RED)" $< "$(END)$(BOLD)is not ready.$(END)"
-	gcc $(CFLAGS) -MM -MP -MT $@ $< > $(DEPDIR)/$*.d
+$(TEST_OBJ): $(OBJ_FOLDER)/%.o: %$(LANG)
+	$(CC) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
+	&& printf "$(BOLD)$(CYAN)$< $(END)$(BOLD)is ready.$(END)\n"    \
+	|| printf "$(BOLD)$(RED) $< $(END)$(BOLD)is not ready.$(END)\n"
+	$(CC) $(CFLAGS) -MM -MP -MT $@ $< > $(DEP_FOLDER)/$*.d
 
 hello:
-	echo -e "$(SAY) I am Hu, a wandering believer. My praise are currently to $(NAME).$(END)"
-	echo -e "$(SAY) My big brother is named Ri. You may know him ?$(END)"
+	printf "$(SAY) I am Hu, a wandering believer. My praise are currently to $(NAME).$(END)\n"
+	printf "$(SAY) My big brother is named Ri. You may know him ?$(END)\n"
+.PHONY: hello
+
+$(OBJ_FOLDER) $(DEP_FOLDER):
+	mkdir -p $@
