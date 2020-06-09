@@ -51,6 +51,8 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
 {
     char c = '\0';
     int dmg = 0;
+    std::string str;
+    Ship::System sys;
 
     scr.cmd_ << "Make a choice :";
     printButtons(scr);
@@ -60,16 +62,15 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
     try {
         if (c < '0' || c > '9')
             throw std::invalid_argument("Not a number");
-        std::string str;
         dmg = button_.at(c - 48 - 1).rollDmg();
-        ship.damageSys(Ship::System(button_.at(c - 48 - 1).getSystem()), dmg);
-        str += c;
-        str += " take ";
-        str += std::to_string(dmg);
-        str += " damges.";
+        sys = Ship::System(button_.at(c - 48 - 1).getSystem());
+        ship.damageSys(sys, dmg);
+        str += System_to_string.at(sys);
+        str += " take " + std::to_string(dmg) + " damages.";
         scr.cmd_ << str;
     } catch (const std::out_of_range &oor) {
         scr.cmd_ << "Not a valid choice.";
+        std::cerr << oor.what() << std::endl;
         return false;
     } catch (const ShipErr &ser) {
         scr.cmd_ << ser.getMessage();

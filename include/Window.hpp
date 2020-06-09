@@ -15,7 +15,7 @@ class Window
             bool is_box = false;
             chtype rs = ACS_VLINE;
             chtype ts = ACS_HLINE;
-            bool is_title = false;
+            bool as_title = false;
             std::string title;
         };
 

@@ -9,7 +9,7 @@ Window::Window(const WinStyle &style) :
     _win = newwin(style.y, style.x, style.off_y, style.off_x);
     if (style.is_box == true)
         box(false);
-    if (style.is_title == true)
+    if (style.as_title == true)
         title(false);
 }
 
@@ -52,7 +52,7 @@ void Window::box(const bool r)
 
 void Window::title(const bool r)
 {
-    if (_style.is_title) {
+    if (_style.as_title) {
         mvwprintw(_win, 0, 1, _style.title.c_str());
         if (r == true)
             this->refresh();

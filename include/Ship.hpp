@@ -9,8 +9,6 @@
 class Ship
 {
     public:
-        Ship();
-        ~Ship();
         enum System {
             Colon = 1,
             Atm = 2,
@@ -21,11 +19,26 @@ class Ship
             Landing = 7,
             Build = 8,
         };
+
+    public:
+        Ship();
+        ~Ship();
         void damageSys(const System &value, const int damage);
         int getSystemValue(const System &value)const;
 
     private:
         std::unordered_map<Ship::System, int> _system;
+};
+
+static const std::unordered_map<Ship::System, std::string> System_to_string {
+    { Ship::Colon, "Colon"},
+    { Ship::Atm, "Atmosphere"},
+    { Ship::Grav, "Gravity"},
+    { Ship::Temp, "Temperature" },
+    { Ship::Water, "Water" },
+    { Ship::Res, "Resources" },
+    { Ship::Landing, "Landing" },
+    { Ship::Build, "Building" },
 };
 
 class ShipErr: public LifepodErr

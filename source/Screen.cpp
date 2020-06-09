@@ -12,28 +12,28 @@ Screen::~Screen()
     endwin();
 }
 
-void Screen::refreshW()
+void Screen::refresh()
 {
     event_.refresh();
     cmd_.refresh();
     status_.refresh();
 }
 
-void Screen::titleW(const bool r)
+void Screen::title(const bool r)
 {
     event_.title(r);
     cmd_.title(r);
     status_.title(r);
 }
 
-void Screen::boxW(const bool r)
+void Screen::box(const bool r)
 {
     event_.box(r);
     cmd_.box(r);
     status_.box(r);
 }
 
-void Screen::clearW(const bool r)
+void Screen::clear(const bool r)
 {
     event_.clear(r);
     cmd_.clear(r);
@@ -128,10 +128,10 @@ void Screen::displayEventTxt(const std::vector<std::string> &e, const bool r)
 
 void Screen::initScreen()
 {
-    initscr();
-    noecho();
-    curs_set(false);
-    clear();
-    cbreak();
-    keypad(stdscr, true);
+    ::initscr();
+    ::noecho();
+    ::curs_set(false);
+    ::clear();
+    ::cbreak();
+    ::keypad(stdscr, true);
 }

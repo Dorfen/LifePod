@@ -25,13 +25,13 @@ class Screen
         // Destructor
         ~Screen();
         // Refresh all the WINDOWs
-        void refreshW();
+        void refresh();
         // Prit the title of all the WINDOWs
-        void titleW(const bool r = true);
+        void title(const bool r = true);
         // Box all the WINDOWs
-        void boxW(const bool r = true);
+        void box(const bool r = true);
         // clear all the WINDOWs
-        void clearW(const bool r = true);
+        void clear(const bool r = true);
         // Print the ship art
         void printShip(const bool r = true);
         // display Ship Status

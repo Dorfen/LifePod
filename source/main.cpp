@@ -17,7 +17,7 @@ int main(void)
         try {
             s.displayShipStatus(ship, false);
             s.displayEventTxt(event_list.at(event_nbr).getText(), false);
-            s.refreshW();
+            s.refresh();
             if (event_list.at(event_nbr).pressButtons(s, ship))
                 event_nbr = rand() % event_list.size();
         } catch (const std::out_of_range &oor) {
@@ -30,7 +30,7 @@ int main(void)
                 throw;
         }
     }
-    s.clearW();
+    s.clear();
     if (ship.getSystemValue(Ship::System::Colon) <= 0)
         mvprintw(LINES/2, COLS/2 - 15, "You lose, all your colons dies");
     else

@@ -36,7 +36,7 @@ RED := \033[31m
 GREEN := \033[32m
 CYAN := \033[36m
 
-CFLAGS  := -I $(HEADP) -Wall -Wextra -Werror -std=c++17 -lncurses
+CFLAGS  := -I $(HEADP) -Wall -Wextra -Werror -std=c++17 -lncurses -g3
 
 MAKEFLAGS += --no-print-directory --silent
 
