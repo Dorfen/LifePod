@@ -41,11 +41,13 @@ void Prompt::addToPrompt(const std::string &str, const bool r)
 
 void Prompt::printPrompt(const bool r)
 {
+    unsigned s = 0;
+
     this->clear(false);
     this->box(false);
     this->title(false);
-    for (long unsigned int i = 0; i < _prompt_history.size(); i++) {
-        this->print(1 + i, 2, _prompt_history.at(i));
+    for (auto &i : _prompt_history) {
+        this->print(++s, 2, i);
     }
     if (r == true)
         this->refresh();

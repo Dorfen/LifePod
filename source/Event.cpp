@@ -70,7 +70,6 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
         scr.cmd_ << str;
     } catch (const std::out_of_range &oor) {
         scr.cmd_ << "Not a valid choice.";
-        std::cerr << oor.what() << std::endl;
         return false;
     } catch (const ShipErr &ser) {
         scr.cmd_ << ser.getMessage();

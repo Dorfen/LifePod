@@ -1,26 +1,24 @@
 ##
-## EPITECH PROJECT, 2020
-## PSU_zappy_2019
-## File description:
-## Hu 1.1
+## A Makefile with faith
+## Hu 2.0
 ##
 
 NAME := LifePod
 HEADP := ./include/
 
 SRC_FOLDER := source
-
 OBJ_FOLDER := .object
 TEST_FOLDER := tests
 
+CC := g++
 LANG := .cpp
 VPATH := $(SRC_FOLDER)
-SRC := $(notdir $(shell find source/  -name '*$(LANG)'))
+SRC := $(notdir $(shell find $(SRC_FOLDER) -name '*$(LANG)'))
 OBJ := $(addprefix $(OBJ_FOLDER)/,$(SRC:$(LANG)=.o))
 OBJM := $(filter-out $(OBJ_FOLDER)/main.o, $(OBJ))
 
 VPATH += $(TEST_FOLDER)
-TEST_SRC := $(notdir $(shell find tests/ -name '*$(LANG)'))
+TEST_SRC := $(notdir $(shell find $(TEST_FOLDER) -name '*$(LANG)'))
 TEST_OBJ := $(addprefix $(OBJ_FOLDER)/, $(TEST_SRC:$(LANG)=.o))
 TFLAGS := -lcriterion
 
@@ -28,15 +26,13 @@ DEP_FOLDER := .deps
 DEPS := $(addprefix $(DEP_FOLDER), $(SRC:$(LANG)=.d))
 TEST_DEPS := $(addprefix $(DEP_FOLDER), $(TEST_SRC:$(LANG)=.d))
 
-CC := g++
-
 END := \033[0m
 BOLD := \033[1m
 RED := \033[31m
 GREEN := \033[32m
 CYAN := \033[36m
 
-CFLAGS  := -I $(HEADP) -Wall -Wextra -Werror -std=c++17 -lncurses -g3
+CFLAGS := -O2 -I $(HEADP) -Wall -Wextra -Werror -std=c++17 -lncurses
 
 MAKEFLAGS += --no-print-directory --silent
 

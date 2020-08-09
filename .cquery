@@ -1,0 +1,4 @@
+%cpp -std=c++17
+
+# Include
+-I./include/
