@@ -1,6 +1,7 @@
 #include "Screen.hpp"
 #include <curses.h>
 
+
 Screen::Screen() :
     event_({ 7 * LINES / 10, 7 * COLS / 10, 0, 0, true, ACS_VLINE, ACS_HLINE, true, "Event"}),
     cmd_({ 3 * LINES /10 + 1, 7 * COLS / 10, 7 * LINES / 10, 0, true, ACS_VLINE, ACS_HLINE, true, "Command"}),
@@ -76,7 +77,7 @@ void Screen::printShip(const bool r)
     int x = 0;
     int y = 0;
 
-    getmaxyx(event_.getWindow(), y, x);
+    getmaxyx(event_.win.get(), y, x);
     event_.print(y - 15, x - 63, "                    `. ___");
     event_.print(y - 14, x - 63, "                    __,' __`.                _..----....____");
     event_.print(y - 13, x - 63, "        __...--.'``;.   ,.   ;``--..__     .'    ,-._    _.-'");
@@ -98,14 +99,14 @@ void Screen::printShip(const bool r)
 void Screen::printLoadbar(const std::pair<int, int> coord, \
                           const int value, const int max, const bool r)
 {
-    const int bar_size = getmaxx(status_.getWindow()) - 4;
+    const int bar_size = getmaxx(status_.win.get()) - 4;
     const int coord_ = (value * bar_size) / max;
-    std::string bar;
+    std::string bar = {'-'};
 
-    bar.resize(bar_size + 1);
+    bar.resize(bar_size);
     bar[bar_size] = '\0';
-    for (int i = 0; i < bar_size; i++)
-        bar[i] = '-';
+    for (auto &i : bar)
+        i = '-';
     for (int i = 0; i < coord_ && bar[i] != '\0'; i++)
         bar[i] = '#';
     status_.print(coord.first, coord.second, "[%s]", bar.c_str());

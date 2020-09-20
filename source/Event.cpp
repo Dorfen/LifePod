@@ -56,7 +56,7 @@ bool Event::pressButtons(Screen &scr, Ship &ship)const
 
     scr.cmd_ << "Make a choice :";
     printButtons(scr);
-    c = wgetch(scr.cmd_.getWindow());
+    c = wgetch(scr.cmd_.win.get());
     if (c == 'q')
         throw EventErr("Quit");
     try {
@@ -86,7 +86,7 @@ void Event::printButtons(Screen &scr)const
 {
     int coord[2] = {-1, -1};
 
-    getmaxyx(scr.cmd_.getWindow(), coord[0], coord[1]);
+    getmaxyx(scr.cmd_.win.get(), coord[0], coord[1]);
     for (long unsigned int i = 0; i < button_.size(); i++) {
         std::string str(std::to_string(i + 1) + " - " + button_.at(i).getMsg());
         scr.cmd_ << str;

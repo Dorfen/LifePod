@@ -23,7 +23,7 @@ class Prompt: public Window
         void operator>>(std::string &str);
 
     private:
-        long unsigned int _prompt_size = 0;
+        unsigned _prompt_size = 0;
         std::vector<std::string> _prompt_history;
 };
 
