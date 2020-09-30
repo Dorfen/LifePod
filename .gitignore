@@ -13,6 +13,9 @@ vgcore.*
 
 # Garbage
 *~
+compile_commands.json
+compile_flags.txt
+.clangd/
 
 # Dependencies
 .deps/
