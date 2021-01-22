@@ -10,7 +10,7 @@ SRC_FOLDER := source
 OBJ_FOLDER := .object
 TEST_FOLDER := tests
 
-CC := g++
+CC := clang++
 LANG := .cpp
 VPATH := $(SRC_FOLDER)
 SRC := $(notdir $(shell find $(SRC_FOLDER) -name '*$(LANG)'))
@@ -23,7 +23,7 @@ TEST_OBJ := $(addprefix $(OBJ_FOLDER)/, $(TEST_SRC:$(LANG)=.o))
 TFLAGS := -lcriterion
 
 DEP_FOLDER := .deps
-DEPS := $(addprefix $(DEP_FOLDER), $(SRC:$(LANG)=.d))
+DEPS := $(addprefix $(DEP_FOLDER)/, $(SRC:$(LANG)=.d))
 TEST_DEPS := $(addprefix $(DEP_FOLDER), $(TEST_SRC:$(LANG)=.d))
 
 END := \033[0m
@@ -32,7 +32,7 @@ RED := \033[31m
 GREEN := \033[32m
 CYAN := \033[36m
 
-CFLAGS := -O2 -I $(HEADP) -Wall -Wextra -Werror -std=c++17 -lncurses
+CFLAGS := -O2 -I $(HEADP) -Wall -Wextra -Werror -std=c++17
 
 MAKEFLAGS += --no-print-directory --silent
 
@@ -48,7 +48,7 @@ start_compile:
 .PHONY: start_compile
 
 $(NAME): start_compile $(OBJ)
-	$(CC) -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS)
+	$(CC) -fuse-ld=lld -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS) -lncurses
 	printf "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
 
 tests_run: $(OBJ) $(TEST_OBJ)
@@ -64,10 +64,9 @@ unit_tests: $(OBJM) $(TEST_OBJ)
 $(OBJ): | $(OBJ_FOLDER) $(DEP_FOLDER)
 
 $(OBJ):$(OBJ_FOLDER)/%.o: %$(LANG)
-	$(CC) $(CFLAGS) -c -o $@ $<	\
+	$(CC) $(CFLAGS) -c -o $@ $< -MMD -MF $(DEP_FOLDER)/$*.d	\
 	&& printf "$(BOLD)$(CYAN)$< $(END)$(BOLD)has been blessed.$(END)\n"    \
 	|| printf "$(BOLD)$(RED) $< $(END)$(BOLD)has been cursed.$(END)\n"
-	$(CC) $(CFLAGS) -MM -MP -MT $@ $< > $(DEP_FOLDER)/$*.d
 
 clear:
 	printf "$(SAY) Purging heretics files...\n"

@@ -51,7 +51,7 @@ void Window::title(const bool r)
     }
 }
 
-void Window::print(const int y, const int x, const std::string &str, ...)
+void Window::print(const int y, const int x, const std::string str, ...)
 {
     va_list args;
     va_start(args, str);

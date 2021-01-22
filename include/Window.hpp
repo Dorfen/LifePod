@@ -29,7 +29,7 @@ class Window
         void clear(const bool r = false);
         void box(const bool r = false);
         void title(const bool r = false);
-        void print(const int y, const int x, const std::string &str, ...);
+        void print(const int y, const int x, const std::string str, ...);
         void refresh();
 
     public:
