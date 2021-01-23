@@ -1,4 +1,5 @@
-image: zcorniere/minimal-cpp
+image: ubuntu:latest
+
 stages:
   - compilation
   - test
@@ -6,6 +7,11 @@ stages:
 cache:
   paths:
   - .object/*.o
+
+before_script:
+  - apt-get update && apt-get install software-properties-common -y
+  - add-apt-repository ppa:snaipewastaken/ppa
+  - apt-get update && apt-get install libncurses-dev clang++ lld -y
 
 test:compilation:
   stage: compilation
@@ -15,4 +21,5 @@ test:compilation:
 test:tests_run:
   stage: test
   script:
+    - apt-get install criterion-dev
     - make tests_run
