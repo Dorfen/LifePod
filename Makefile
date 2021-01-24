@@ -47,6 +47,10 @@ start_compile:
 	printf "$(SAY) Praise for the almighty $(CYAN)binary$(END)$(BOLD) !$(END)\n"
 .PHONY: start_compile
 
+format:
+	find . -regex '.*\.\(cpp\|hpp\)' -exec clang-format -style=file -i {} \;
+.PHONY: format
+	
 $(NAME): start_compile $(OBJ)
 	$(CC) -fuse-ld=lld -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS) -lncurses
 	printf "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
