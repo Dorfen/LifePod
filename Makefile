@@ -108,7 +108,7 @@ re:
 .PHONY: re
 
 $(TEST_OBJ): $(OBJ_FOLDER)/%.o: %$(LANG)
-	$(CC) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
+	$(CC) $(CFLAGS) -c -o $@ $< \
 	&& printf "$(BOLD)$(CYAN)$< $(END)$(BOLD)is ready.$(END)\n"    \
 	|| printf "$(BOLD)$(RED) $< $(END)$(BOLD)is not ready.$(END)\n"
 	$(CC) $(CFLAGS) -MM -MP -MT $@ $< > $(DEP_FOLDER)/$*.d
