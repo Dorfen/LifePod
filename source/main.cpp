@@ -1,8 +1,8 @@
-#include <iostream>
-#include "Ship.hpp"
-#include "Event.hpp"
 #include "Button.hpp"
+#include "Event.hpp"
 #include "Screen.hpp"
+#include "Ship.hpp"
+#include <iostream>
 
 int main(void)
 {
@@ -32,9 +32,9 @@ int main(void)
     }
     s.clear();
     if (ship.getSystemValue<Ship::System::Colon>() <= 0)
-        mvprintw(LINES/2, COLS/2 - 15, "You lose, all your colons dies");
+        mvprintw(LINES / 2, COLS / 2 - 15, "You lose, all your colons dies");
     else
-        mvprintw(LINES/2, COLS/2 - 4, "You win");
+        mvprintw(LINES / 2, COLS / 2 - 4, "You win");
     refresh();
     getch();
 }

@@ -26,7 +26,7 @@ Test(Button, Button_constructor_number)
 Test(Button, Button_constructor_str_throw)
 {
     std::string str("Button:10:5:2");
-    cr_assert_throw(Button but (str), ButtonErr);
+    cr_assert_throw(Button but(str), ButtonErr);
 }
 
 Test(Button, Button_constructor_number_throw)

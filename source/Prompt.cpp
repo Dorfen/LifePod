@@ -1,19 +1,14 @@
 #include "Prompt.hpp"
 
-Prompt::Prompt() :
-    Window()
-{}
+Prompt::Prompt(): Window() {}
 
-Prompt::Prompt(const WinStyle &style) :
-    Window(style),
-    _prompt_size(style.y - 3),
-    _prompt_history()
+Prompt::Prompt(const WinStyle &style)
+    : Window(style), _prompt_size(style.y - 3), _prompt_history()
 {
     _prompt_history.reserve(_prompt_size);
 }
 
-Prompt::~Prompt()
-{}
+Prompt::~Prompt() {}
 
 std::string Prompt::getPromptInput()
 {
@@ -25,8 +20,7 @@ std::string Prompt::getPromptInput()
     getstr(msg);
     noecho();
     curs_set(false);
-    if (msg[0] != '\n')
-        *this << "> " << msg;
+    if (msg[0] != '\n') *this << "> " << msg;
     return std::string(msg);
 }
 
@@ -35,8 +29,7 @@ void Prompt::addToPrompt(const std::string &str, const bool r)
     if (_prompt_history.size() >= _prompt_size)
         _prompt_history.erase(_prompt_history.begin());
     _prompt_history.push_back(str);
-    if (r == true)
-        printPrompt();
+    if (r == true) printPrompt();
 }
 
 void Prompt::printPrompt(const bool r)
@@ -46,11 +39,8 @@ void Prompt::printPrompt(const bool r)
     this->clear(false);
     this->box(false);
     this->title(false);
-    for (auto &i : _prompt_history) {
-        this->print(++s, 2, i);
-    }
-    if (r == true)
-        this->refresh();
+    for (auto &i: _prompt_history) { this->print(++s, 2, i); }
+    if (r == true) this->refresh();
 }
 
 Prompt &Prompt::operator<<(const std::string &str)
@@ -59,7 +49,4 @@ Prompt &Prompt::operator<<(const std::string &str)
     return *this;
 }
 
-void Prompt::operator>>(std::string &str)
-{
-    str = getPromptInput();
-}
+void Prompt::operator>>(std::string &str) { str = getPromptInput(); }
