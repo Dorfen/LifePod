@@ -23,7 +23,3 @@ void Ship::damageSys(const System &value, const int damage)
         _system[value] = 0;
 }
 
-int Ship::getSystemValue(const System &value)const
-{
-    return _system.at(value);
-}

@@ -23,8 +23,11 @@ class Ship
     public:
         Ship();
         ~Ship();
+        template<System T>
+        int getSystemValue()const {
+            return _system.at(T);
+        }
         void damageSys(const System &value, const int damage);
-        int getSystemValue(const System &value)const;
 
     private:
         std::unordered_map<Ship::System, int> _system;

@@ -45,29 +45,29 @@ void Screen::clear(const bool r)
 void Screen::displayShipStatus(const Ship &s, const bool r)
 {
     status_.print(2, 1, "Colon :");
-    printLoadbar(std::pair<int, int>(3, 1), s.getSystemValue(Ship::System::Colon), 1000);
-    status_.print(4, 1, "%04i | 1000", s.getSystemValue(Ship::System::Colon));
-     printLoadbar(std::pair<int, int>(7, 1), s.getSystemValue(Ship::System::Landing), 100);
-    status_.print(8, 1, "%03i | 100", s.getSystemValue(Ship::System::Landing));   status_.print(6, 1, "Landing :");
+    printLoadbar(std::pair<int, int>(3, 1), s.getSystemValue<Ship::System::Colon>(), 1000);
+    status_.print(4, 1, "%04i | 1000", s.getSystemValue<Ship::System::Colon>());
+     printLoadbar(std::pair<int, int>(7, 1), s.getSystemValue<Ship::System::Landing>(), 100);
+    status_.print(8, 1, "%03i | 100", s.getSystemValue<Ship::System::Landing>());  status_.print(6, 1, "Landing :");
     status_.print(14, 1, "Athmosphere :");
-    printLoadbar(std::pair<int, int>(15, 1), s.getSystemValue(Ship::System::Atm), 100);
-    status_.print(16, 1, "%03i | 100", s.getSystemValue(Ship::System::Atm));
+    printLoadbar(std::pair<int, int>(15, 1), s.getSystemValue<Ship::System::Atm>(), 100);
+    status_.print(16, 1, "%03i | 100", s.getSystemValue<Ship::System::Atm>());
     status_.print(18, 1, "Gravity :");
-    printLoadbar(std::pair<int, int>(19, 1), s.getSystemValue(Ship::System::Grav), 100);
-    status_.print(20, 1, "%03i | 100", s.getSystemValue(Ship::System::Grav));
+    printLoadbar(std::pair<int, int>(19, 1), s.getSystemValue<Ship::System::Grav>(), 100);
+    status_.print(20, 1, "%03i | 100", s.getSystemValue<Ship::System::Grav>());
     status_.print(22, 1, "Temperature :");
-    printLoadbar(std::pair<int, int>(23, 1), s.getSystemValue(Ship::System::Temp), 100);
-    status_.print(24, 1, "%03i | 100", s.getSystemValue(Ship::System::Temp));
+    printLoadbar(std::pair<int, int>(23, 1), s.getSystemValue<Ship::System::Temp>(), 100);
+    status_.print(24, 1, "%03i | 100", s.getSystemValue<Ship::System::Temp>());
     status_.print(26, 1, "Water :");
-    printLoadbar(std::pair<int, int>(27, 1), s.getSystemValue(Ship::System::Water), 100);
-    status_.print(28, 1, "%03i | 100", s.getSystemValue(Ship::System::Water));
+    printLoadbar(std::pair<int, int>(27, 1), s.getSystemValue<Ship::System::Water>(), 100);
+    status_.print(28, 1, "%03i | 100", s.getSystemValue<Ship::System::Water>());
     status_.print(30, 1, "Ressources :");
-    printLoadbar(std::pair<int, int>(31, 1), s.getSystemValue(Ship::System::Res), 100);
-    status_.print(32, 1, "%03i | 100", s.getSystemValue(Ship::System::Res));
+    printLoadbar(std::pair<int, int>(31, 1), s.getSystemValue<Ship::System::Res>(), 100);
+    status_.print(32, 1, "%03i | 100", s.getSystemValue<Ship::System::Res>());
 
     status_.print(10, 1, "Building :");
-    printLoadbar(std::pair<int, int>(11, 1), s.getSystemValue(Ship::System::Build), 100);
-    status_.print(12, 1, "%03i | 100", s.getSystemValue(Ship::System::Build));
+    printLoadbar(std::pair<int, int>(11, 1), s.getSystemValue<Ship::System::Build>(), 100);
+    status_.print(12, 1, "%03i | 100", s.getSystemValue<Ship::System::Build>());
     if (r == true)
         status_.refresh();
 }
